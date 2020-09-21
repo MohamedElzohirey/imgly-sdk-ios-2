@@ -417,9 +417,9 @@ open class IMGLYCameraViewController: UIViewController {
         //filterSelectionViewConstraint = NSLayoutConstraint(item: filterSelectionController.view!, attribute: .top, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0)
         constant = 0.0
         if hasTopNotch{
-            hasTopNotch = -10.0
+            constant = -10.0
         }
-        filterSelectionViewConstraint = NSLayoutConstraint(item: filterSelectionController.view!, attribute: .top, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .bottom, multiplier: 1, constant: hasTopNotch)
+        filterSelectionViewConstraint = NSLayoutConstraint(item: filterSelectionController.view!, attribute: .top, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .bottom, multiplier: 1, constant: constant)
         view.addConstraint(filterSelectionViewConstraint!)
     }
     

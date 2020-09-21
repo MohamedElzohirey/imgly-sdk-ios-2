@@ -203,7 +203,7 @@ open class IMGLYCameraViewController: UIViewController {
     
     fileprivate var filterSelectionViewConstraint: NSLayoutConstraint?
     fileprivate var filterControllersConstraint: NSLayoutConstraint?
-    var hasTopNotch: Bool = false
+    public var hasTopNotch: Bool = false
     public let filterSelectionController = IMGLYFilterSelectionController()
     
     open fileprivate(set) var cameraController: IMGLYCameraController?

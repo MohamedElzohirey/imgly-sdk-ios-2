@@ -27,10 +27,9 @@ open class IMGLYCameraViewController: UIViewController {
     
     /// This initializer should only be used in Objective-C. It expects an NSArray of NSNumbers that wrap
     /// the integer value of IMGLYRecordingMode.
-    public convenience init(recordingModes: [NSNumber], hasTopNotch:Bool = false) {
+    public convenience init(recordingModes: [NSNumber]) {
         let modes = recordingModes.map { IMGLYRecordingMode(rawValue: $0.intValue) }.filter { $0 != nil }.map { $0! }
         self.init(recordingModes: modes)
-        self.hasTopNotch = hasTopNotch
     }
     
     /**

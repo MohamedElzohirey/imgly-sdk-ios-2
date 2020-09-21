@@ -757,8 +757,11 @@ open class IMGLYCameraViewController: UIViewController {
         if let filterSelectionViewConstraint = self.filterSelectionViewConstraint {
             let animationDuration = TimeInterval(0.6)
             let dampingFactor = CGFloat(0.6)
-            
-            if filterSelectionViewConstraint.constant == -10 {
+            var expandCondition:CGFloat = 0
+            if hasTopNotch{
+                expandCondition = -10
+            }
+            if filterSelectionViewConstraint.constant == expandCondition {
                 // Expand
                 if hasTopNotch{
                     filterControllersConstraint?.constant = 0

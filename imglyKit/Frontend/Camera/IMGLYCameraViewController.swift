@@ -611,7 +611,7 @@ open class IMGLYCameraViewController: UIViewController {
         hideSliderTimer?.invalidate()
         hideSliderTimer = Timer.scheduledTimer(timeInterval: ShowFilterIntensitySliderInterval, target: self, selector: #selector(IMGLYCameraViewController.hideFilterIntensitySlider(_:)), userInfo: nil, repeats: false)
     }
-    
+    public var editorCompletionBlockDone: IMGLYEditorCompletionBlock?
     fileprivate func showEditorNavigationControllerWithImage(_ image: UIImage) {
         let editorViewController = IMGLYMainEditorViewController()
         editorViewController.highResolutionImage = image
@@ -815,7 +815,7 @@ open class IMGLYCameraViewController: UIViewController {
         if let image = image, result == .done {
             UIImageWriteToSavedPhotosAlbum(image, self, #selector(IMGLYCameraViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
-        
+        editorCompletionBlockDone?(result,image)
         dismiss(animated: true, completion: nil)
     }
     

@@ -202,6 +202,13 @@ open class IMGLYCameraViewController: UIViewController {
     fileprivate var hideSliderTimer: Timer?
     
     fileprivate var filterSelectionViewConstraint: NSLayoutConstraint?
+    fileprivate var filterControllersConstraint: NSLayoutConstraint?
+    var hasTopNotch: Bool {
+        if #available(iOS 11.0, tvOS 11.0, *) {
+            return UIApplication.shared.delegate?.window??.safeAreaInsets.top ?? 0 > 20
+        }
+        return false
+    }
     public let filterSelectionController = IMGLYFilterSelectionController()
     
     open fileprivate(set) var cameraController: IMGLYCameraController?
@@ -394,13 +401,25 @@ open class IMGLYCameraViewController: UIViewController {
 
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[topLayoutGuide][topControlsView(==topControlsViewHeight)]", options: [], metrics: metrics, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[bottomControlsView][filterSelectionView(==filterSelectionViewHeight)]", options: [], metrics: metrics, views: views))
-        view.addConstraint(NSLayoutConstraint(item: filterIntensitySlider, attribute: .bottom, relatedBy: .equal, toItem: bottomControlsView, attribute: .top, multiplier: 1, constant: -20))
-        
+        //view.addConstraint(NSLayoutConstraint(item: filterIntensitySlider, attribute: .bottom, relatedBy: .equal, toItem: bottomControlsView, attribute: .top, multiplier: 1, constant: -20))
+        var constant:CGFloat = -20.0
+        if hasTopNotch{
+            constant = 20.0
+        }
+        filterControllersConstraint = NSLayoutConstraint(item: filterIntensitySlider, attribute: .bottom, relatedBy: .equal, toItem: bottomControlsView, attribute: .top, multiplier: 1, constant: constant)
+        if let cc = filterControllersConstraint{
+            view.addConstraint(cc)
+        }
         cameraPreviewContainerTopConstraint = NSLayoutConstraint(item: cameraPreviewContainer, attribute: .top, relatedBy: .equal, toItem: topControlsView, attribute: .bottom, multiplier: 1, constant: 0)
         cameraPreviewContainerBottomConstraint = NSLayoutConstraint(item: cameraPreviewContainer, attribute: .bottom, relatedBy: .equal, toItem: bottomControlsView, attribute: .top, multiplier: 1, constant: 0)
         view.addConstraints([cameraPreviewContainerTopConstraint!, cameraPreviewContainerBottomConstraint!])
         
-        filterSelectionViewConstraint = NSLayoutConstraint(item: filterSelectionController.view!, attribute: .top, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0)
+        //filterSelectionViewConstraint = NSLayoutConstraint(item: filterSelectionController.view!, attribute: .top, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .bottom, multiplier: 1, constant: 0)
+        constant = 0.0
+        if hasTopNotch{
+            hasTopNotch = -10.0
+        }
+        filterSelectionViewConstraint = NSLayoutConstraint(item: filterSelectionController.view!, attribute: .top, relatedBy: .equal, toItem: bottomLayoutGuide, attribute: .bottom, multiplier: 1, constant: hasTopNotch)
         view.addConstraint(filterSelectionViewConstraint!)
     }
     
@@ -746,8 +765,16 @@ open class IMGLYCameraViewController: UIViewController {
             
             if filterSelectionViewConstraint.constant == 0 {
                 // Expand
+                if hasTopNotch{
+                    filterControllersConstraint?.constant = 0
+                }
+                var constant:CGFloat = 0.0
+                if hasTopNotch{
+                    constant = 20.0
+                }
                 filterSelectionController.beginAppearanceTransition(true, animated: true)
-                filterSelectionViewConstraint.constant = -1 * CGFloat(FilterSelectionViewHeight)
+                filterSelectionViewConstraint.constant = -1 * ( CGFloat(FilterSelectionViewHeight) + constant)
+                //filterSelectionViewConstraint.constant = -1 * CGFloat(FilterSelectionViewHeight)
                 UIView.animate(withDuration: animationDuration, delay: 0, usingSpringWithDamping: dampingFactor, initialSpringVelocity: 0, options: [], animations: {
                     sender?.transform = CGAffineTransform.identity
                     self.view.layoutIfNeeded()
@@ -756,8 +783,15 @@ open class IMGLYCameraViewController: UIViewController {
                 })
             } else {
                 // Close
+                if hasTopNotch{
+                    filterControllersConstraint?.constant = 20
+                }
                 filterSelectionController.beginAppearanceTransition(false, animated: true)
-                filterSelectionViewConstraint.constant = 0
+                if hasTopNotch{
+                    filterSelectionViewConstraint.constant = -10
+                }else{
+                    filterSelectionViewConstraint.constant = 0
+                }
                 UIView.animate(withDuration: animationDuration, delay: 0, usingSpringWithDamping: dampingFactor, initialSpringVelocity: 0, options: [], animations: {
                     sender?.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
                     self.view.layoutIfNeeded()

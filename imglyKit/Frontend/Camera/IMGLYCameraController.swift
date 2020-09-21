@@ -818,6 +818,9 @@ open class IMGLYCameraController: NSObject {
         var error: NSError?
         
         let videoDevice = IMGLYCameraController.deviceWithMediaType(AVMediaType.video.rawValue, preferringPosition: cameraPosition)
+            #if targetEnvironment(simulator)
+                return
+            #endif
         let videoDeviceInput: AVCaptureDeviceInput!
         do {
             videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice!)
@@ -852,6 +855,9 @@ open class IMGLYCameraController: NSObject {
         var error: NSError?
         
         let audioDevice = IMGLYCameraController.deviceWithMediaType(AVMediaType.audio.rawValue, preferringPosition: nil)
+        #if targetEnvironment(simulator)
+            return
+        #endif
         let audioDeviceInput: AVCaptureDeviceInput!
         do {
             audioDeviceInput = try AVCaptureDeviceInput(device: audioDevice!)

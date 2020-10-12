@@ -96,7 +96,16 @@ open class IMGLYCameraViewController: UIViewController {
         button.isHidden = true
         return button
         }()
-    
+    open fileprivate(set) lazy var cancelButton: UIButton = {
+        let bundle = Bundle(for: type(of: self))
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "Close-White-Icon", in: bundle, compatibleWith: nil), for: [])
+        button.contentHorizontalAlignment = .left
+        button.addTarget(self, action: #selector(IMGLYCameraViewController.cancel(_:)), for: .touchUpInside)
+        button.isHidden = false
+        return button
+    }()
     open fileprivate(set) lazy var switchCameraButton: UIButton = {
         let bundle = Bundle(for: type(of: self))
         let button = UIButton()
@@ -342,6 +351,8 @@ open class IMGLYCameraViewController: UIViewController {
         view.addSubview(filterSelectionController.view)
         
         topControlsView.addSubview(flashButton)
+        topControlsView.addSubview(cancelButton)
+        
         topControlsView.addSubview(switchCameraButton)
         
         bottomControlsView.addSubview(cameraRollButton)
@@ -364,6 +375,7 @@ open class IMGLYCameraViewController: UIViewController {
             "bottomControlsView" : bottomControlsView,
             "filterSelectionView" : filterSelectionController.view,
             "flashButton" : flashButton,
+            "cancelButton" : cancelButton,
             "switchCameraButton" : switchCameraButton,
             "cameraRollButton" : cameraRollButton,
             "actionButtonContainer" : actionButtonContainer,
@@ -419,8 +431,19 @@ open class IMGLYCameraViewController: UIViewController {
     }
     
     fileprivate func configureTopControlsConstraintsWithMetrics(_ metrics: [String : AnyObject], views: [String : AnyObject]) {
-        topControlsView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(==topControlMargin)-[flashButton(>=topControlMinWidth)]-(>=topControlMargin)-[switchCameraButton(>=topControlMinWidth)]-(==topControlMargin)-|", options: [], metrics: metrics, views: views))
+        topControlsView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(==topControlMargin)-[cancelButton(>=topControlMinWidth)]-(>=topControlMargin)-[switchCameraButton(>=topControlMinWidth)]-(==topControlMargin)-|", options: [], metrics: metrics, views: views))
+        topControlsView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[cancelButton]|", options: [], metrics: nil, views: views))
+        if #available(iOS 9.0, *) {
+            cancelButton.leadingAnchor.constraint(equalTo: topControlsView.leadingAnchor, constant: 10).isActive = true
+
+            flashButton.leadingAnchor.constraint(equalTo: cancelButton.trailingAnchor, constant: 10).isActive = true
+        } else {
+            // Fallback on earlier versions
+        }
+        //cancelButton.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "h:|[flashButton]|", options: [], metrics: nil, views: views))
         topControlsView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[flashButton]|", options: [], metrics: nil, views: views))
+        topControlsView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[cancelButton]|", options: [], metrics: nil, views: views))
+
         topControlsView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[switchCameraButton]|", options: [], metrics: nil, views: views))
     }
     
@@ -698,7 +721,9 @@ open class IMGLYCameraViewController: UIViewController {
             self.hideSliderTimer = nil
         }) 
     }
-    
+    @objc open func cancel(_ sender: UIButton?) {
+        dismiss(animated: true, completion: nil)
+    }
     @objc open func changeFlash(_ sender: UIButton?) {
         switch(currentRecordingMode) {
         case .photo:
@@ -814,7 +839,7 @@ open class IMGLYCameraViewController: UIViewController {
             UIImageWriteToSavedPhotosAlbum(image, self, #selector(IMGLYCameraViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
         editorCompletionBlockDone?(result,image)
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: false, completion: nil)
     }
     
     @objc fileprivate func image(_ image: UIImage, didFinishSavingWithError: NSError, contextInfo:UnsafeRawPointer) {

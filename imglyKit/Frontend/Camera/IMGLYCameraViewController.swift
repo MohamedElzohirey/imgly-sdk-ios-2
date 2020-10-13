@@ -629,6 +629,8 @@ open class IMGLYCameraViewController: UIViewController {
         hideSliderTimer?.invalidate()
         hideSliderTimer = Timer.scheduledTimer(timeInterval: ShowFilterIntensitySliderInterval, target: self, selector: #selector(IMGLYCameraViewController.hideFilterIntensitySlider(_:)), userInfo: nil, repeats: false)
     }
+    public typealias IMGLYVideoCompletionBlock = (Bool, URL?) -> Void
+    public var videoCompletionBlock: IMGLYVideoCompletionBlock?
     public var editorCompletionBlockDone: IMGLYEditorCompletionBlock?
     fileprivate func showEditorNavigationControllerWithImage(_ image: UIImage) {
         let editorViewController = IMGLYMainEditorViewController()
@@ -1080,7 +1082,8 @@ extension IMGLYCameraViewController: IMGLYCameraControllerDelegate {
             if let completionBlock = self.completionBlock {
                 completionBlock(nil, fileURL)
             } else {
-                self.saveMovieWithMovieURLToAssets(fileURL)
+                self.videoCompletionBlock?(true,fileURL)
+                //self.saveMovieWithMovieURLToAssets(fileURL)
             }
         }
     }

@@ -676,11 +676,14 @@ open class IMGLYCameraViewController: UIViewController {
     open func setLastImageFromRollAsPreview() {
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
-        
-        let fetchResult = PHAsset.fetchAssets(with: .image, options: fetchOptions)
+        var mediaType:PHAssetMediaType = .image
+        if self.currentRecordingMode == .video{
+            mediaType = .video
+        }
+        let fetchResult = PHAsset.fetchAssets(with: mediaType, options: fetchOptions)
         if fetchResult.lastObject != nil {
             let lastAsset: PHAsset = fetchResult.lastObject!
-            PHImageManager.default().requestImage(for: lastAsset, targetSize: CGSize(width: BottomControlSize.width * 2, height: BottomControlSize.height * 2), contentMode: PHImageContentMode.aspectFill, options: PHImageRequestOptions()) { (result, info) -> Void in
+            PHImageManager.default() .requestImage(for: lastAsset, targetSize: CGSize(width: BottomControlSize.width * 2, height: BottomControlSize.height * 2), contentMode: PHImageContentMode.aspectFill, options: PHImageRequestOptions()) { (result, info) -> Void in
                 self.cameraRollButton.setImage(result, for: [])
             }
         }
@@ -744,7 +747,12 @@ open class IMGLYCameraViewController: UIViewController {
         
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-        imagePicker.mediaTypes = [String(kUTTypeImage),String(kUTTypeVideo),String(kUTTypeMovie)]
+        //[String(kUTTypeImage),String(kUTTypeVideo),String(kUTTypeMovie)]
+        if self.currentRecordingMode == .video{
+            imagePicker.mediaTypes = [String(kUTTypeMovie)]
+        }else{
+            imagePicker.mediaTypes = [String(kUTTypeImage)]
+        }
         imagePicker.allowsEditing = false
         
         self.present(imagePicker, animated: true, completion: nil)
@@ -998,7 +1006,7 @@ extension IMGLYCameraViewController: IMGLYCameraControllerDelegate {
                 previousActionButton.alpha = 0
             }
             
-            self.cameraRollButton.alpha = self.currentRecordingMode == .video ? 0 : 1
+            //self.cameraRollButton.alpha = self.currentRecordingMode == .video ? 0 : 1
             
             self.bottomControlsView.layoutIfNeeded()
         }

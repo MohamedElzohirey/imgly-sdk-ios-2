@@ -744,7 +744,7 @@ open class IMGLYCameraViewController: UIViewController {
         
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-        imagePicker.mediaTypes = [String(kUTTypeImage)]
+        imagePicker.mediaTypes = [String(kUTTypeImage),String(kUTTypeVideo),String(kUTTypeMovie)]
         imagePicker.allowsEditing = false
         
         self.present(imagePicker, animated: true, completion: nil)
@@ -1116,6 +1116,12 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
             } else {
                 if let image = image {
                     self.showEditorNavigationControllerWithImage(image)
+                    return
+                }
+                if let videoURL = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.mediaURL)] as? URL{
+                    //this is video
+                    print("url: \(videoURL.absoluteString)")
+                    self.videoCompletionBlock?(true,videoURL)
                 }
             }
         })

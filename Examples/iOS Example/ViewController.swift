@@ -24,18 +24,22 @@ class ViewController: UIViewController {
         cameraViewController.squareMode = true
         cameraViewController.modalPresentationStyle = .fullScreen
         cameraViewController.editorCompletionBlockDone = editorCompletionBlock
+        cameraViewController.editorCompletionAllImagesBlockDone = editorAllImagesCompletionBlock
         cameraViewController.videoCompletionBlock = videoCompletionBlock
         present(cameraViewController, animated: true, completion: nil)
     }
     func videoCompletionBlock(result: Bool, url:URL?){
         print(url?.absoluteString)
-        cameraViewController.dismiss(animated: true) {
-            
+        DispatchQueue.main.async {
+            self.cameraViewController.dismiss(animated: true) {}
         }
     }
+    func editorAllImagesCompletionBlock(result: IMGLYEditorResult, image: [UIImage]) {
+        cameraViewController.dismiss(animated: true) {}
+    }
     func editorCompletionBlock(result: IMGLYEditorResult, image: UIImage?) {
-        guard let image = image else{return}
         cameraViewController.dismiss(animated: true, completion: nil)
+        guard let image = image else{return}
     }
     /*
     // MARK: - Navigation

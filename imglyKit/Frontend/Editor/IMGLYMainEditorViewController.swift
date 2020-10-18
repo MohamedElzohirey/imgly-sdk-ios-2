@@ -29,6 +29,7 @@ import UIKit
 }
 
 public typealias IMGLYEditorCompletionBlock = (IMGLYEditorResult, UIImage?) -> Void
+public typealias IMGLYEditorAllImagesCompletionBlock = (IMGLYEditorResult, [UIImage]) -> Void
 
 private let ButtonCollectionViewCellReuseIdentifier = "ButtonCollectionViewCell"
 private let ButtonCollectionViewCellSize = CGSize(width: 66, height: 90)
@@ -109,7 +110,7 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
     open var completionBlock: IMGLYEditorCompletionBlock?
     open var initialFilterType = IMGLYFilterType.none
     open var initialFilterIntensity = NSNumber(value: 0.75 as Double)
-    open fileprivate(set) var fixedFilterStack = IMGLYFixedFilterStack()
+    open  var fixedFilterStack = IMGLYFixedFilterStack()
     
     fileprivate let maxLowResolutionSideLength = CGFloat(1600)
     open var highResolutionImage: UIImage? {
@@ -176,10 +177,12 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
             }
         }
     }
-    
+    public typealias IMGLYSubEditorImageCompletionBlock = (UIImage?) -> (Void)
+    open var completionImageHandler: IMGLYSubEditorImageCompletionBlock?
     fileprivate func subEditorDidComplete(_ image: UIImage?, fixedFilterStack: IMGLYFixedFilterStack) {
         previewImageView.image = image
         self.fixedFilterStack = fixedFilterStack
+        completionImageHandler?(image)
     }
     
     fileprivate func generateLowResolutionImage() {

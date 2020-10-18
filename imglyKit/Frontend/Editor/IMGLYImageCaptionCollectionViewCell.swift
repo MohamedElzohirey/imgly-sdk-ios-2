@@ -100,3 +100,55 @@ class IMGLYImageCaptionCollectionViewCell: UICollectionViewCell {
     }
     
 }
+class IMGLYImageCollectionViewCell: UICollectionViewCell {
+    
+    // MARK: - Properties
+    
+    lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+        }()
+    
+    
+    // MARK: - Initializers
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    
+    fileprivate func commonInit() {
+        configureViews()
+    }
+    
+    // MARK: - Helpers
+    
+    fileprivate func configureViews() {
+        addSubview(imageView)
+        let horizontalConstraint = imageView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        let verticalConstraint = imageView.topAnchor.constraint(equalTo: topAnchor)
+        let widthConstraint = imageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.0)
+        let heightConstraint = imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1.0, constant: 0)
+        addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
+    }
+    
+    // MARK: - Subclasses
+    
+    var imageSize: CGSize {
+        // Subclasses should override this
+        return CGSize.zero
+    }
+    
+    var imageCaptionMargin: CGFloat {
+        // Subclasses should override this
+        return 0
+    }
+    
+}

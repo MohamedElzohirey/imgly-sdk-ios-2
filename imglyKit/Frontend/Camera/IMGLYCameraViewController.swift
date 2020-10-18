@@ -255,7 +255,7 @@ open class IMGLYCameraViewController: UIViewController {
     fileprivate var cameraPreviewContainerBottomConstraint: NSLayoutConstraint?
     
     // MARK: - UIViewController
-
+var selectedAssets:[TLPHAsset]=[]
     override open func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black
@@ -632,15 +632,22 @@ open class IMGLYCameraViewController: UIViewController {
     public typealias IMGLYVideoCompletionBlock = (Bool, URL?) -> Void
     public var videoCompletionBlock: IMGLYVideoCompletionBlock?
     public var editorCompletionBlockDone: IMGLYEditorCompletionBlock?
-    fileprivate func showEditorNavigationControllerWithImage(_ image: UIImage) {
-        let editorViewController = IMGLYMainEditorViewController()
-        editorViewController.highResolutionImage = image
+    public var editorCompletionAllImagesBlockDone: IMGLYEditorAllImagesCompletionBlock?
+    fileprivate func showEditorNavigationControllerWithImage(_ images: [UIImage]) {
+        let frameworkBundleID  = "com.9elements.imglyKit";
+        let bundle = Bundle(identifier: frameworkBundleID)
+            //[NSBundle bundleWithIdentifier:frameworkBundleID];
+
+        let editorViewController = MultiImagesEditorVC(nibName: "MultiImagesEditorVC", bundle: bundle)
+        editorViewController.modalPresentationStyle = .fullScreen
+        editorViewController.highResolutionImage = images.first
+        editorViewController.images = images
         if let cameraController = cameraController {
             editorViewController.initialFilterType = cameraController.effectFilter.filterType
             editorViewController.initialFilterIntensity = cameraController.effectFilter.inputIntensity
         }
         editorViewController.completionBlock = editorCompletionBlock
-        
+        editorViewController.completionAllImagesBlock = editorAllImagesCompletionBlock
         let navigationController = IMGLYNavigationController(rootViewController: editorViewController)
         navigationController.navigationBar.barStyle = .black
         navigationController.navigationBar.isTranslucent = false
@@ -743,6 +750,29 @@ open class IMGLYCameraViewController: UIViewController {
     }
     
     @objc open func showCameraRoll(_ sender: UIButton?) {
+        let viewController = TLPhotosPickerViewController()
+              viewController.delegate = self
+              var configure = TLPhotosPickerConfigure()
+        configure.allowedVideoRecording = false
+        if self.currentRecordingMode == .video{
+            configure.allowedVideo = true
+            configure.allowedPhotograph = false
+            configure.allowedLivePhotos = false
+            configure.mediaType = .video
+            configure.maxSelectedAssets = 1
+        }else{
+            configure.allowedVideo = false
+            configure.allowedPhotograph = true
+            configure.allowedLivePhotos = true
+            configure.mediaType = .image
+            configure.maxSelectedAssets = 20
+        }
+        viewController.configure = configure
+              //configure.nibSet = (nibName: "CustomCell_Instagram", bundle: Bundle.main) // If you want use your custom cell..
+              self.present(viewController, animated: true, completion: nil)
+        
+        /*return
+        
         let imagePicker = UIImagePickerController()
         
         imagePicker.delegate = self
@@ -755,7 +785,7 @@ open class IMGLYCameraViewController: UIViewController {
         }
         imagePicker.allowsEditing = false
         
-        self.present(imagePicker, animated: true, completion: nil)
+        self.present(imagePicker, animated: true, completion: nil)*/
     }
     
     @objc open func takePhoto(_ sender: UIButton?) {
@@ -766,7 +796,7 @@ open class IMGLYCameraViewController: UIViewController {
                         completionBlock(image, nil)
                     } else {
                         if let image = image {
-                            self.showEditorNavigationControllerWithImage(image)
+                            self.showEditorNavigationControllerWithImage([image])
                         }
                     }
                 }
@@ -843,7 +873,10 @@ open class IMGLYCameraViewController: UIViewController {
     }
     
     // MARK: - Completion
-    
+    fileprivate func editorAllImagesCompletionBlock(_ result: IMGLYEditorResult, image: [UIImage]) {
+        editorCompletionAllImagesBlockDone?(result,image)
+        dismiss(animated: false, completion: nil)
+    }
     fileprivate func editorCompletionBlock(_ result: IMGLYEditorResult, image: UIImage?) {
         if let image = image, result == .done {
             UIImageWriteToSavedPhotosAlbum(image, self, #selector(IMGLYCameraViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
@@ -1123,7 +1156,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 completionBlock(image, nil)
             } else {
                 if let image = image {
-                    self.showEditorNavigationControllerWithImage(image)
+                    self.showEditorNavigationControllerWithImage([image])
                     return
                 }
                 if let videoURL = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.mediaURL)] as? URL{
@@ -1148,4 +1181,71 @@ fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [U
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
 	return input.rawValue
+}
+
+extension IMGLYCameraViewController: TLPhotosPickerViewControllerDelegate{
+    public func shouldDismissPhotoPicker(withTLPHAssets: [TLPHAsset]) -> Bool {
+        // use selected order, fullresolution image
+        self.selectedAssets = withTLPHAssets
+    return true
+    }
+    public func dismissPhotoPicker(withPHAssets: [PHAsset]) {
+        // if you want to used phasset.
+    }
+    public func photoPickerDidCancel() {
+        // cancel
+    }
+    public func dismissComplete() {
+        // picker viewcontroller dismiss completion
+        if selectedAssets.count == 0{
+            self.cancel(nil)
+            return
+        }
+        var images:[UIImage] = []
+          for asset in selectedAssets{
+            if asset.type == .video {
+                asset.exportVideoFile { (url, str) in
+                    self.videoCompletionBlock?(true,url)
+                }
+                return
+            }
+              if let image = asset.fullResolutionImage{
+                  images.append(image)
+              }
+          }
+          let frameworkBundleID  = "com.9elements.imglyKit";
+          let bundle = Bundle(identifier: frameworkBundleID)
+              //[NSBundle bundleWithIdentifier:frameworkBundleID];
+
+          let editorViewController = MultiImagesEditorVC(nibName: "MultiImagesEditorVC", bundle: bundle)
+          editorViewController.modalPresentationStyle = .fullScreen
+          editorViewController.highResolutionImage = images.first
+          editorViewController.images = images
+          if let cameraController = cameraController {
+              editorViewController.initialFilterType = cameraController.effectFilter.filterType
+              editorViewController.initialFilterIntensity = cameraController.effectFilter.inputIntensity
+          }
+          editorViewController.completionBlock = editorCompletionBlock
+          editorViewController.completionAllImagesBlock = editorAllImagesCompletionBlock
+          let navigationController = IMGLYNavigationController(rootViewController: editorViewController)
+          navigationController.navigationBar.barStyle = .black
+          navigationController.navigationBar.isTranslucent = false
+          navigationController.navigationBar.titleTextAttributes = [ NSAttributedString.Key.foregroundColor : UIColor.white ]
+          
+          self.present(navigationController, animated: true, completion: nil)
+    }
+    public func canSelectAsset(phAsset: PHAsset) -> Bool {
+        return true
+        //Custom Rules & Display
+        //You can decide in which case the selection of the cell could be forbidden.
+    }
+    public func didExceedMaximumNumberOfSelection(picker: TLPhotosPickerViewController) {
+        // exceed max selection
+    }
+    public func handleNoAlbumPermissions(picker: TLPhotosPickerViewController) {
+        // handle denied albums permissions case
+    }
+    public func handleNoCameraPermissions(picker: TLPhotosPickerViewController) {
+        // handle denied camera permissions case
+    }
 }

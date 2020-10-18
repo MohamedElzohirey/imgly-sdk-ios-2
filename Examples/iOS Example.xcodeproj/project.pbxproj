@@ -14,6 +14,8 @@
 		2BF4D7C01AF11F7200C801B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4D7BF1AF11F7200C801B2 /* AppDelegate.swift */; };
 		D94A3ABB253489EB005BD2E2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A3AB9253489EB005BD2E2 /* ViewController.swift */; };
 		D94A3ABC253489EB005BD2E2 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94A3ABA253489EB005BD2E2 /* ViewController.xib */; };
+		D94A3AEC253C76E4005BD2E2 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94A3AEA253C76E2005BD2E2 /* Photos.framework */; };
+		D94A3AED253C76E4005BD2E2 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94A3AEB253C76E2005BD2E2 /* PhotosUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		2BF4D7BF1AF11F7200C801B2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D94A3AB9253489EB005BD2E2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D94A3ABA253489EB005BD2E2 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		D94A3AEA253C76E2005BD2E2 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		D94A3AEB253C76E2005BD2E2 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +75,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B3A5D901B2F095200CCF99B /* imglyKit.framework in Frameworks */,
+				D94A3AEC253C76E4005BD2E2 /* Photos.framework in Frameworks */,
+				D94A3AED253C76E4005BD2E2 /* PhotosUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +98,7 @@
 				2BF4D77D1AF11E2E00C801B2 /* iOS Example */,
 				2BF4D7B41AF11ED100C801B2 /* imglyKit.xcodeproj */,
 				2BF4D77C1AF11E2E00C801B2 /* Products */,
+				D94A3AE9253C76E2005BD2E2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,6 +129,15 @@
 				2BF4D77F1AF11E2E00C801B2 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D94A3AE9253C76E2005BD2E2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D94A3AEA253C76E2005BD2E2 /* Photos.framework */,
+				D94A3AEB253C76E2005BD2E2 /* PhotosUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -16,3 +16,11 @@ class IMGLYButtonCollectionViewCell: IMGLYImageCaptionCollectionViewCell {
         return CGSize(width: 44, height: 44)
     }
 }
+class IMGLYImageItemCollectionViewCell: IMGLYImageCollectionViewCell {
+
+    // MARK: - ImageCaptionCollectionViewCell
+    
+    override var imageSize: CGSize {
+        return CGSize(width: 44, height: 44)
+    }
+}

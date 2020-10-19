@@ -17,10 +17,10 @@ Pod::Spec.new do |s|
 
     s.swift_version = '5.0'
 
-    s.ios.source_files = ['imglyKit/Backend/**/*.{h,m,swift}', 'imglyKit/Frontend/**/*.{h,m,swift}']
+    s.ios.source_files = ['imglyKit/Backend/**/*.{h,m,swift,xib}', 'imglyKit/Frontend/**/*.{h,m,swift,xib}']
     s.osx.source_files = ['imglyKit/Backend/**/*.{h,m,swift}']
 
-	s.ios.resources = ['imglyKit/Frontend/Assets.xcassets', 'imglyKit/Frontend/en.lproj/Localizable.strings', 'imglyKit/Backend/Filter Responses/*.png', 'imglyKit/Backend/Fonts/*']
+	s.ios.resources = ['imglyKit/Frontend/Assets.xcassets', 'imglyKit/Frontend/en.lproj/Localizable.strings','imglyKit/Frontend/ImagePicker/Assets.xcassets','imglyKit/Frontend/ImagePicker/*.xib','imglyKit/Frontend/MultiImagesEditor/*.xib', 'imglyKit/Backend/Filter Responses/*.png', 'imglyKit/Backend/Fonts/*']
 	s.osx.resources = ['imglyKit/Backend/Filter Responses/*.png', 'imglyKit/Backend/Fonts/*']
 
 	s.ios.frameworks = 'Accelerate', 'AVFoundation', 'CoreGraphics', 'CoreImage', 'CoreMotion', 'CoreText', 'Foundation', 'GLKit', 'MobileCoreServices', 'OpenGLES', 'Photos', 'UIKit'

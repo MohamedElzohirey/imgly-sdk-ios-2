@@ -638,7 +638,7 @@ var selectedAssets:[TLPHAsset]=[]
         let bundle = Bundle(identifier: frameworkBundleID)
             //[NSBundle bundleWithIdentifier:frameworkBundleID];
 
-        let editorViewController = MultiImagesEditorVC(nibName: "MultiImagesEditorVC", bundle: bundle)
+        let editorViewController = MultiImagesEditorVC()//(nibName: "MultiImagesEditorVC", bundle: bundle)
         editorViewController.modalPresentationStyle = .fullScreen
         editorViewController.highResolutionImage = images.first
         editorViewController.images = images
@@ -1217,7 +1217,7 @@ extension IMGLYCameraViewController: TLPhotosPickerViewControllerDelegate{
           let bundle = Bundle(identifier: frameworkBundleID)
               //[NSBundle bundleWithIdentifier:frameworkBundleID];
 
-          let editorViewController = MultiImagesEditorVC(nibName: "MultiImagesEditorVC", bundle: bundle)
+          let editorViewController = MultiImagesEditorVC()//(nibName: "MultiImagesEditorVC", bundle: bundle)
           editorViewController.modalPresentationStyle = .fullScreen
           editorViewController.highResolutionImage = images.first
           editorViewController.images = images

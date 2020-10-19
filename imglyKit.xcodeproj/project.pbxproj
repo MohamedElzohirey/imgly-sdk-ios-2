@@ -187,7 +187,6 @@
 		2BF4D3D21AF1150500C801B2 /* IMGLYContrastEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4D3B31AF1150400C801B2 /* IMGLYContrastEditorViewController.swift */; };
 		2BF4D3D31AF1150500C801B2 /* IMGLYCropEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4D3B41AF1150400C801B2 /* IMGLYCropEditorViewController.swift */; };
 		2BF4D3D41AF1150500C801B2 /* IMGLYCropRectComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4D3B51AF1150400C801B2 /* IMGLYCropRectComponent.swift */; };
-		2BF4D3D51AF1150500C801B2 /* IMGLYEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4D3B61AF1150400C801B2 /* IMGLYEditorViewController.swift */; };
 		2BF4D3D61AF1150500C801B2 /* IMGLYFilterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4D3B71AF1150400C801B2 /* IMGLYFilterCollectionViewCell.swift */; };
 		2BF4D3D71AF1150500C801B2 /* IMGLYFilterEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4D3B81AF1150400C801B2 /* IMGLYFilterEditorViewController.swift */; };
 		2BF4D3D81AF1150500C801B2 /* IMGLYFilterSelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF4D3B91AF1150400C801B2 /* IMGLYFilterSelectionController.swift */; };
@@ -392,6 +391,7 @@
 		D94A3AE8253C729B005BD2E2 /* TLBundle+SPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A3AE7253C729B005BD2E2 /* TLBundle+SPM.swift */; };
 		D94A3AF3253D806B005BD2E2 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94A3AEF253C7713005BD2E2 /* Photos.framework */; };
 		D94A3AF4253D806C005BD2E2 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94A3AF0253C7713005BD2E2 /* PhotosUI.framework */; };
+		D94A3AF6253D9F64005BD2E2 /* IMGLYEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A3AF5253D9F63005BD2E2 /* IMGLYEditorViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -419,7 +419,6 @@
 		2BF4D3B31AF1150400C801B2 /* IMGLYContrastEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMGLYContrastEditorViewController.swift; sourceTree = "<group>"; };
 		2BF4D3B41AF1150400C801B2 /* IMGLYCropEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = IMGLYCropEditorViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2BF4D3B51AF1150400C801B2 /* IMGLYCropRectComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMGLYCropRectComponent.swift; sourceTree = "<group>"; };
-		2BF4D3B61AF1150400C801B2 /* IMGLYEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMGLYEditorViewController.swift; sourceTree = "<group>"; };
 		2BF4D3B71AF1150400C801B2 /* IMGLYFilterCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMGLYFilterCollectionViewCell.swift; sourceTree = "<group>"; };
 		2BF4D3B81AF1150400C801B2 /* IMGLYFilterEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = IMGLYFilterEditorViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2BF4D3B91AF1150400C801B2 /* IMGLYFilterSelectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = IMGLYFilterSelectionController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -624,6 +623,7 @@
 		D94A3AE7253C729B005BD2E2 /* TLBundle+SPM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TLBundle+SPM.swift"; sourceTree = "<group>"; };
 		D94A3AEF253C7713005BD2E2 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
 		D94A3AF0253C7713005BD2E2 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/PhotosUI.framework; sourceTree = DEVELOPER_DIR; };
+		D94A3AF5253D9F63005BD2E2 /* IMGLYEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IMGLYEditorViewController.swift; path = imglyKit/Frontend/Camera/IMGLYEditorViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -756,7 +756,7 @@
 				2BF4D3B31AF1150400C801B2 /* IMGLYContrastEditorViewController.swift */,
 				2BF4D3B41AF1150400C801B2 /* IMGLYCropEditorViewController.swift */,
 				2BF4D3B51AF1150400C801B2 /* IMGLYCropRectComponent.swift */,
-				2BF4D3B61AF1150400C801B2 /* IMGLYEditorViewController.swift */,
+				D94A3AF5253D9F63005BD2E2 /* IMGLYEditorViewController.swift */,
 				2BF4D3B71AF1150400C801B2 /* IMGLYFilterCollectionViewCell.swift */,
 				2BF4D3B81AF1150400C801B2 /* IMGLYFilterEditorViewController.swift */,
 				2BF4D3B91AF1150400C801B2 /* IMGLYFilterSelectionController.swift */,
@@ -1448,7 +1448,6 @@
 				2BF4D51B1AF1155E00C801B2 /* IMGLYLomo100Filter.swift in Sources */,
 				2BF4D52F1AF1155E00C801B2 /* IMGLYSeventiesFilter.swift in Sources */,
 				2BF4D3D91AF1150500C801B2 /* IMGLYFocusEditorViewController.swift in Sources */,
-				2BF4D3D51AF1150500C801B2 /* IMGLYEditorViewController.swift in Sources */,
 				2BF4D50C1AF1155E00C801B2 /* IMGLYFallFilter.swift in Sources */,
 				2BF4D5231AF1155E00C801B2 /* IMGLYOrchidFilter.swift in Sources */,
 				2BF4D3CE1AF1150500C801B2 /* IMGLYBrightnessEditorViewController.swift in Sources */,
@@ -1487,6 +1486,7 @@
 				D94A3AD9253C6BB0005BD2E2 /* TLBundle.swift in Sources */,
 				2BF4D5021AF1155E00C801B2 /* IMGLYChestFilter.swift in Sources */,
 				2BF4D52E1AF1155E00C801B2 /* IMGLYSettledFilter.swift in Sources */,
+				D94A3AF6253D9F64005BD2E2 /* IMGLYEditorViewController.swift in Sources */,
 				2BF4D5321AF1155E00C801B2 /* IMGLYSteelFilter.swift in Sources */,
 				2BF4D52A1AF1155E00C801B2 /* IMGLYPro400Filter.swift in Sources */,
 				2BF4D50D1AF1155E00C801B2 /* IMGLYFixieFilter.swift in Sources */,

@@ -32,22 +32,16 @@ open class IMGLYEditorViewController: UIViewController {
     
     open var lowResolutionImage: UIImage?
     
-    @IBOutlet weak var previewImageView: IMGLYZoomingImageView!
-    /*open fileprivate(set) lazy var previewImageView: IMGLYZoomingImageView = {
+    //@IBOutlet weak var previewImageView: IMGLYZoomingImageView!
+    open fileprivate(set) lazy var previewImageView: IMGLYZoomingImageView = {
         let imageView = IMGLYZoomingImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isUserInteractionEnabled = self.enableZoomingInPreviewImage
         return imageView
-        }()*/
+        }()
     
     open fileprivate(set) lazy var bottomContainerView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    open fileprivate(set) lazy var bottomMultiImageContainerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .red
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -94,9 +88,8 @@ open class IMGLYEditorViewController: UIViewController {
     fileprivate func configureViewHierarchy() {
         view.backgroundColor = UIColor.black
 
-        //view.addSubview(previewImageView)
+        view.addSubview(previewImageView)
         view.addSubview(bottomContainerView)
-        view.addSubview(bottomMultiImageContainerView)
         previewImageView.addSubview(activityIndicatorView)
     }
     
@@ -104,20 +97,16 @@ open class IMGLYEditorViewController: UIViewController {
         let views: [String: AnyObject] = [
             "previewImageView" : previewImageView,
             "bottomContainerView" : bottomContainerView,
-            "bottomMultiImageContainerView" : bottomMultiImageContainerView,
             "topLayoutGuide" : topLayoutGuide
         ]
         
         let metrics: [String: AnyObject] = [
-            "bottomContainerViewHeight" : 100 as AnyObject,
-            "bottomMultiImageContainerViewHeight" : 100 as AnyObject
+            "bottomContainerViewHeight" : 100 as AnyObject
         ]
         
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[previewImageView]|", options: [], metrics: nil, views: views))
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[bottomContainerView]|", options: [], metrics: nil, views: views))
         //
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[bottomMultiImageContainerView]|", options: [], metrics: nil, views: views))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[topLayoutGuide][bottomContainerView][bottomMultiImageContainerView(==bottomMultiImageContainerViewHeight)]|", options: [], metrics: metrics, views: views))
 //
         view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:[topLayoutGuide][previewImageView][bottomContainerView(==bottomContainerViewHeight)]|", options: [], metrics: metrics, views: views))
         let verticalSpace = NSLayoutConstraint(item: self.bottomContainerView, attribute: .top, relatedBy: .equal, toItem: self.previewImageView, attribute: .bottom, multiplier: 1, constant: 100)

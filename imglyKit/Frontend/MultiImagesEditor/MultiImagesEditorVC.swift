@@ -16,13 +16,16 @@ class MultiImagesEditorVC: UIViewController {
     var highResolutionImage: UIImage?
     let editorViewController = IMGLYMainEditorViewController()
     var images:[UIImage] = []
+    var editedImages:[UIImage] = []
+    var filters:[IMGLYFixedFilterStack] = []
     var initialFilterType = IMGLYFilterType.none
     var initialFilterIntensity = NSNumber(value: 0.75 as Double)
     var selectedRow = 0
-    fileprivate func completionImageHandler(_ image: UIImage?) {
+    fileprivate func completionImageHandler(_ image: UIImage?,_ fixedFilter: IMGLYFixedFilterStack) {
         if images.count == 1 {return}
         if let image = image{
-            images[selectedRow] = image
+            editedImages[selectedRow] = image
+            filters[selectedRow] = fixedFilter
             DispatchQueue.main.async {
                 self.collectionView.reloadItems(at: [IndexPath(row: self.selectedRow, section: 0)])
             }
@@ -39,11 +42,15 @@ class MultiImagesEditorVC: UIViewController {
         if images.count == 1 {
             editorViewController.tappedDone(nil)
         }else{
-            completionAllImagesBlock?(.done, images)
+            completionAllImagesBlock?(.done, editedImages)
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        images.forEach { (img) in
+            filters.append(IMGLYFixedFilterStack())
+            editedImages.append(img)
+        }
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(MultiImagesEditorVC.cancelTapped(_:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(MultiImagesEditorVC.tappedDone(_:)))
 
@@ -129,14 +136,14 @@ class MultiImagesEditorVC: UIViewController {
 }
 extension MultiImagesEditorVC: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return images.count
+        return editedImages.count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ButtonCollectionViewCellReuseIdentifier, for: indexPath)
         
         if let buttonCell = cell as? IMGLYImageItemCollectionViewCell {
-            buttonCell.imageView.image = images[indexPath.row]
+            buttonCell.imageView.image = editedImages[indexPath.row]
         }
         
         return cell
@@ -147,7 +154,7 @@ extension MultiImagesEditorVC: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectedRow = indexPath.row
         editorViewController.highResolutionImage = images[indexPath.row]
-        editorViewController.fixedFilterStack = IMGLYFixedFilterStack()
+        editorViewController.fixedFilterStack = filters[indexPath.row]
         editorViewController.viewDidLoad()
     }
 }

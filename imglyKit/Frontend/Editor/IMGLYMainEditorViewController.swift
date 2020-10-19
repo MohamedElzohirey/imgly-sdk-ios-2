@@ -177,12 +177,12 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
             }
         }
     }
-    public typealias IMGLYSubEditorImageCompletionBlock = (UIImage?) -> (Void)
+    public typealias IMGLYSubEditorImageCompletionBlock = (UIImage?, IMGLYFixedFilterStack) -> (Void)
     open var completionImageHandler: IMGLYSubEditorImageCompletionBlock?
     fileprivate func subEditorDidComplete(_ image: UIImage?, fixedFilterStack: IMGLYFixedFilterStack) {
         previewImageView.image = image
         self.fixedFilterStack = fixedFilterStack
-        completionImageHandler?(image)
+        completionImageHandler?(image, fixedFilterStack)
     }
     
     fileprivate func generateLowResolutionImage() {

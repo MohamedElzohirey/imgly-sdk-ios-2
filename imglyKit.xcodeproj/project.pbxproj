@@ -390,6 +390,8 @@
 		D94A3AE4253C7284005BD2E2 /* TLPhotoPickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = D94A3AE3253C7283005BD2E2 /* TLPhotoPickerController.bundle */; };
 		D94A3AE6253C728C005BD2E2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D94A3AE5253C728A005BD2E2 /* Assets.xcassets */; };
 		D94A3AE8253C729B005BD2E2 /* TLBundle+SPM.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A3AE7253C729B005BD2E2 /* TLBundle+SPM.swift */; };
+		D94A3AF3253D806B005BD2E2 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94A3AEF253C7713005BD2E2 /* Photos.framework */; };
+		D94A3AF4253D806C005BD2E2 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94A3AF0253C7713005BD2E2 /* PhotosUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -636,6 +638,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D94A3AF3253D806B005BD2E2 /* Photos.framework in Frameworks */,
+				D94A3AF4253D806C005BD2E2 /* PhotosUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

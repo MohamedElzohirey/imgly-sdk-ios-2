@@ -649,6 +649,7 @@
 		2B1ADA0B1B19C33600C98522 /* Frontend */ = {
 			isa = PBXGroup;
 			children = (
+				D94A3AC6253C6BAD005BD2E2 /* ImagePicker */,
 				2BF4D3A71AF114F000C801B2 /* Assets.xcassets */,
 				D94A3AC1253C26E4005BD2E2 /* MultiImagesEditor */,
 				2BF4D3A01AF113E600C801B2 /* Camera */,
@@ -714,7 +715,6 @@
 		2BF4D3861AF1139600C801B2 /* imglyKit */ = {
 			isa = PBXGroup;
 			children = (
-				D94A3AC6253C6BAD005BD2E2 /* ImagePicker */,
 				2B1ADA0C1B19C33900C98522 /* Backend */,
 				2B1ADA0B1B19C33600C98522 /* Frontend */,
 				2BF4D3891AF1139600C801B2 /* imglyKit.h */,

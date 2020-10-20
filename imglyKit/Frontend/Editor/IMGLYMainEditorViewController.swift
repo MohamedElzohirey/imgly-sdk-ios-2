@@ -28,8 +28,8 @@ import UIKit
     case reset
 }
 
-public typealias IMGLYEditorCompletionBlock = (IMGLYEditorResult, UIImage?, String?) -> Void
-public typealias IMGLYEditorAllImagesCompletionBlock = (IMGLYEditorResult, [UIImage], String?) -> Void
+public typealias IMGLYEditorCompletionBlock = (IMGLYEditorResult, UIImage?, Bool, String?) -> Void
+public typealias IMGLYEditorAllImagesCompletionBlock = (IMGLYEditorResult, [UIImage], Bool, String?) -> Void
 
 private let ButtonCollectionViewCellReuseIdentifier = "ButtonCollectionViewCell"
 private let ButtonCollectionViewCellSize = CGSize(width: 66, height: 90)
@@ -220,7 +220,8 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
     }
     
     // MARK: - EditorViewController
-    open var postDirect:String? = nil
+    open var postDirect:Bool = false
+    open var postText:String? = nil
     override open func tappedDone(_ sender: UIBarButtonItem?) {
         if let completionBlock = completionBlock {
             highResolutionImage = highResolutionImage?.imgly_normalizedImage
@@ -232,12 +233,12 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
                     filteredHighResolutionImage = IMGLYPhotoProcessor.processWithUIImage(highResolutionImage, filters: self.fixedFilterStack.activeFilters)
                     
                     DispatchQueue.main.async {
-                        completionBlock(.done, filteredHighResolutionImage,self.postDirect)
+                        completionBlock(.done, filteredHighResolutionImage,self.postDirect,self.postText)
                         sender?.isEnabled = true
                     }
                 }
             } else {
-                completionBlock(.done, filteredHighResolutionImage,self.postDirect)
+                completionBlock(.done, filteredHighResolutionImage,self.postDirect,self.postText)
             }
         } else {
             dismiss(animated: true, completion: nil)
@@ -246,7 +247,7 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
     
     @objc fileprivate func cancelTapped(_ sender: UIBarButtonItem?) {
         if let completionBlock = completionBlock {
-            completionBlock(.cancel, nil, self.postDirect)
+            completionBlock(.cancel, nil, self.postDirect,nil)
         } else {
             dismiss(animated: true, completion: nil)
         }

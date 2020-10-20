@@ -858,15 +858,15 @@ var selectedAssets:[TLPHAsset]=[]
     }
     
     // MARK: - Completion
-    fileprivate func editorAllImagesCompletionBlock(_ result: IMGLYEditorResult, image: [UIImage], postDirect: String?) {
-        editorCompletionAllImagesBlockDone?(result,image,postDirect)
+    fileprivate func editorAllImagesCompletionBlock(_ result: IMGLYEditorResult, image: [UIImage], postDirect: Bool, postText: String?) {
+        editorCompletionAllImagesBlockDone?(result,image,postDirect, postText)
         dismiss(animated: false, completion: nil)
     }
-    fileprivate func editorCompletionBlock(_ result: IMGLYEditorResult, image: UIImage?, postDirect: String?) {
+    fileprivate func editorCompletionBlock(_ result: IMGLYEditorResult, image: UIImage?, postDirect: Bool, postText: String?) {
         if let image = image, result == .done {
             UIImageWriteToSavedPhotosAlbum(image, self, #selector(IMGLYCameraViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
-        editorCompletionBlockDone?(result,image, postDirect)
+        editorCompletionBlockDone?(result,image, postDirect, postText)
         dismiss(animated: false, completion: nil)
     }
     

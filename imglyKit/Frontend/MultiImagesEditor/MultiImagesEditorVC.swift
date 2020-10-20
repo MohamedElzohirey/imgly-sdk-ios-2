@@ -39,7 +39,7 @@ open class MultiImagesEditorVC: UIViewController {
     }
     @objc fileprivate func cancelTapped(_ sender: UIBarButtonItem?) {
         if let completionBlock = completionBlock {
-            completionBlock(.cancel, nil, false)
+            completionBlock(.cancel, nil, nil)
         } else {
             dismiss(animated: true, completion: nil)
         }
@@ -160,7 +160,7 @@ open class MultiImagesEditorVC: UIViewController {
         return button
     }
     @objc func addPost() {
-        editorViewController.postDirect = true
+        editorViewController.postDirect = growingTextView.text
         tappedDone(nil)
     }
     fileprivate func configureMenuCollectionView() {

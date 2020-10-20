@@ -37,10 +37,10 @@ class ViewController: UIViewController {
             self.cameraViewController.dismiss(animated: true) {}
         }
     }
-    func editorAllImagesCompletionBlock(result: IMGLYEditorResult, image: [UIImage], postDirect: Bool) {
+    func editorAllImagesCompletionBlock(result: IMGLYEditorResult, image: [UIImage], postDirect: String?) {
         cameraViewController.dismiss(animated: true) {}
     }
-    func editorCompletionBlock(result: IMGLYEditorResult, image: UIImage?, postDirect: Bool) {
+    func editorCompletionBlock(result: IMGLYEditorResult, image: UIImage?, postDirect: String?) {
         cameraViewController.dismiss(animated: true, completion: nil)
         guard let image = image else{return}
     }

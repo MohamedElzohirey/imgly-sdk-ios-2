@@ -28,8 +28,8 @@ import UIKit
     case reset
 }
 
-public typealias IMGLYEditorCompletionBlock = (IMGLYEditorResult, UIImage?, Bool) -> Void
-public typealias IMGLYEditorAllImagesCompletionBlock = (IMGLYEditorResult, [UIImage], Bool) -> Void
+public typealias IMGLYEditorCompletionBlock = (IMGLYEditorResult, UIImage?, String?) -> Void
+public typealias IMGLYEditorAllImagesCompletionBlock = (IMGLYEditorResult, [UIImage], String?) -> Void
 
 private let ButtonCollectionViewCellReuseIdentifier = "ButtonCollectionViewCell"
 private let ButtonCollectionViewCellSize = CGSize(width: 66, height: 90)
@@ -220,7 +220,7 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
     }
     
     // MARK: - EditorViewController
-    open var postDirect = false
+    open var postDirect:String? = nil
     override open func tappedDone(_ sender: UIBarButtonItem?) {
         if let completionBlock = completionBlock {
             highResolutionImage = highResolutionImage?.imgly_normalizedImage

@@ -392,6 +392,7 @@
 		D94A3AF3253D806B005BD2E2 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94A3AEF253C7713005BD2E2 /* Photos.framework */; };
 		D94A3AF4253D806C005BD2E2 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D94A3AF0253C7713005BD2E2 /* PhotosUI.framework */; };
 		D94A3AF6253D9F64005BD2E2 /* IMGLYEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94A3AF5253D9F63005BD2E2 /* IMGLYEditorViewController.swift */; };
+		D9679996253EDF37001B6410 /* SimpleGrowingTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9679995253EDF37001B6410 /* SimpleGrowingTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -624,6 +625,7 @@
 		D94A3AEF253C7713005BD2E2 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
 		D94A3AF0253C7713005BD2E2 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/PhotosUI.framework; sourceTree = DEVELOPER_DIR; };
 		D94A3AF5253D9F63005BD2E2 /* IMGLYEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IMGLYEditorViewController.swift; path = imglyKit/Frontend/Camera/IMGLYEditorViewController.swift; sourceTree = SOURCE_ROOT; };
+		D9679995253EDF37001B6410 /* SimpleGrowingTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleGrowingTextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -972,6 +974,7 @@
 			children = (
 				D94A3AC2253C2712005BD2E2 /* MultiImagesEditorVC.swift */,
 				D94A3AC3253C2712005BD2E2 /* MultiImagesEditorVC.xib */,
+				D9679995253EDF37001B6410 /* SimpleGrowingTextView.swift */,
 			);
 			path = MultiImagesEditor;
 			sourceTree = "<group>";
@@ -1466,6 +1469,7 @@
 				2BF4D5241AF1155E00C801B2 /* IMGLYPaleFilter.swift in Sources */,
 				2BF4D3EF1AF1151500C801B2 /* UIImageExtension.swift in Sources */,
 				2BF4D3DD1AF1150500C801B2 /* IMGLYImageCaptionCollectionViewCell.swift in Sources */,
+				D9679996253EDF37001B6410 /* SimpleGrowingTextView.swift in Sources */,
 				2BF4D3D31AF1150500C801B2 /* IMGLYCropEditorViewController.swift in Sources */,
 				2BF4D3DB1AF1150500C801B2 /* IMGLYGradientViewDelegate.swift in Sources */,
 				2BF4D3D01AF1150500C801B2 /* IMGLYCircleGradientView.swift in Sources */,

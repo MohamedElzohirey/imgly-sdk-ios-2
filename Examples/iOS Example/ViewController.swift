@@ -21,7 +21,10 @@ class ViewController: UIViewController {
     
     @IBAction func  open(){
         cameraViewController.maximumVideoLength = 15
-        cameraViewController.squareMode = true
+        cameraViewController.hasTextComment = true
+        cameraViewController.placeholder = "Tesss"
+        cameraViewController.text = "Here we go"
+        cameraViewController.squareMode = false
         cameraViewController.modalPresentationStyle = .fullScreen
         cameraViewController.editorCompletionBlockDone = editorCompletionBlock
         cameraViewController.editorCompletionAllImagesBlockDone = editorAllImagesCompletionBlock
@@ -34,21 +37,11 @@ class ViewController: UIViewController {
             self.cameraViewController.dismiss(animated: true) {}
         }
     }
-    func editorAllImagesCompletionBlock(result: IMGLYEditorResult, image: [UIImage]) {
+    func editorAllImagesCompletionBlock(result: IMGLYEditorResult, image: [UIImage], postDirect: Bool) {
         cameraViewController.dismiss(animated: true) {}
     }
-    func editorCompletionBlock(result: IMGLYEditorResult, image: UIImage?) {
+    func editorCompletionBlock(result: IMGLYEditorResult, image: UIImage?, postDirect: Bool) {
         cameraViewController.dismiss(animated: true, completion: nil)
         guard let image = image else{return}
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

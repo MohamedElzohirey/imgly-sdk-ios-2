@@ -57,7 +57,9 @@ open class IMGLYCameraViewController: UIViewController {
     }
     
     // MARK: - Properties
-    
+    open var hasTextComment = false
+    open var placeholder = ""
+    open var text = ""
     open fileprivate(set) lazy var backgroundContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.clear
@@ -634,12 +636,11 @@ var selectedAssets:[TLPHAsset]=[]
     public var editorCompletionBlockDone: IMGLYEditorCompletionBlock?
     public var editorCompletionAllImagesBlockDone: IMGLYEditorAllImagesCompletionBlock?
     fileprivate func showEditorNavigationControllerWithImage(_ images: [UIImage]) {
-        let frameworkBundleID  = "com.9elements.imglyKit";
-        let bundle = Bundle(identifier: frameworkBundleID)
-            //[NSBundle bundleWithIdentifier:frameworkBundleID];
-
-        let editorViewController = MultiImagesEditorVC()//(nibName: "MultiImagesEditorVC", bundle: bundle)
+        let editorViewController = MultiImagesEditorVC()
         editorViewController.modalPresentationStyle = .fullScreen
+        editorViewController.hasTextComment = hasTextComment
+        editorViewController.placeholder = placeholder
+        editorViewController.text = text
         editorViewController.highResolutionImage = images.first
         editorViewController.images = images
         if let cameraController = cameraController {
@@ -652,7 +653,7 @@ var selectedAssets:[TLPHAsset]=[]
         navigationController.navigationBar.barStyle = .black
         navigationController.navigationBar.isTranslucent = false
         navigationController.navigationBar.titleTextAttributes = [ NSAttributedString.Key.foregroundColor : UIColor.white ]
-        
+        navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true, completion: nil)
     }
     
@@ -751,8 +752,9 @@ var selectedAssets:[TLPHAsset]=[]
     
     @objc open func showCameraRoll(_ sender: UIButton?) {
         let viewController = TLPhotosPickerViewController()
-              viewController.delegate = self
-              var configure = TLPhotosPickerConfigure()
+        viewController.modalPresentationStyle = .fullScreen
+        viewController.delegate = self
+        var configure = TLPhotosPickerConfigure()
         configure.allowedVideoRecording = false
         if self.currentRecordingMode == .video{
             configure.allowedVideo = true
@@ -768,24 +770,7 @@ var selectedAssets:[TLPHAsset]=[]
             configure.maxSelectedAssets = 20
         }
         viewController.configure = configure
-              //configure.nibSet = (nibName: "CustomCell_Instagram", bundle: Bundle.main) // If you want use your custom cell..
-              self.present(viewController, animated: true, completion: nil)
-        
-        /*return
-        
-        let imagePicker = UIImagePickerController()
-        
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
-        //[String(kUTTypeImage),String(kUTTypeVideo),String(kUTTypeMovie)]
-        if self.currentRecordingMode == .video{
-            imagePicker.mediaTypes = [String(kUTTypeMovie)]
-        }else{
-            imagePicker.mediaTypes = [String(kUTTypeImage)]
-        }
-        imagePicker.allowsEditing = false
-        
-        self.present(imagePicker, animated: true, completion: nil)*/
+        self.present(viewController, animated: true, completion: nil)
     }
     
     @objc open func takePhoto(_ sender: UIButton?) {
@@ -873,15 +858,15 @@ var selectedAssets:[TLPHAsset]=[]
     }
     
     // MARK: - Completion
-    fileprivate func editorAllImagesCompletionBlock(_ result: IMGLYEditorResult, image: [UIImage]) {
-        editorCompletionAllImagesBlockDone?(result,image)
+    fileprivate func editorAllImagesCompletionBlock(_ result: IMGLYEditorResult, image: [UIImage], postDirect: Bool) {
+        editorCompletionAllImagesBlockDone?(result,image,postDirect)
         dismiss(animated: false, completion: nil)
     }
-    fileprivate func editorCompletionBlock(_ result: IMGLYEditorResult, image: UIImage?) {
+    fileprivate func editorCompletionBlock(_ result: IMGLYEditorResult, image: UIImage?, postDirect: Bool) {
         if let image = image, result == .done {
             UIImageWriteToSavedPhotosAlbum(image, self, #selector(IMGLYCameraViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
         }
-        editorCompletionBlockDone?(result,image)
+        editorCompletionBlockDone?(result,image, postDirect)
         dismiss(animated: false, completion: nil)
     }
     
@@ -1195,8 +1180,7 @@ extension IMGLYCameraViewController: TLPhotosPickerViewControllerDelegate{
     public func photoPickerDidCancel() {
         // cancel
     }
-    public func dismissComplete() {
-        // picker viewcontroller dismiss completion
+    func openEditor(){
         if selectedAssets.count == 0{
             self.cancel(nil)
             return
@@ -1213,11 +1197,10 @@ extension IMGLYCameraViewController: TLPhotosPickerViewControllerDelegate{
                   images.append(image)
               }
           }
-          let frameworkBundleID  = "com.9elements.imglyKit";
-          let bundle = Bundle(identifier: frameworkBundleID)
-              //[NSBundle bundleWithIdentifier:frameworkBundleID];
-
-          let editorViewController = MultiImagesEditorVC()//(nibName: "MultiImagesEditorVC", bundle: bundle)
+          let editorViewController = MultiImagesEditorVC()
+            editorViewController.hasTextComment = hasTextComment
+            editorViewController.placeholder = placeholder
+            editorViewController.text = text
           editorViewController.modalPresentationStyle = .fullScreen
           editorViewController.highResolutionImage = images.first
           editorViewController.images = images
@@ -1231,8 +1214,13 @@ extension IMGLYCameraViewController: TLPhotosPickerViewControllerDelegate{
           navigationController.navigationBar.barStyle = .black
           navigationController.navigationBar.isTranslucent = false
           navigationController.navigationBar.titleTextAttributes = [ NSAttributedString.Key.foregroundColor : UIColor.white ]
-          
+        navigationController.modalPresentationStyle = .fullScreen
           self.present(navigationController, animated: true, completion: nil)
+    }
+    public func dismissComplete() {
+        DispatchQueue.main.async {
+            self.openEditor()
+        }
     }
     public func canSelectAsset(phAsset: PHAsset) -> Bool {
         return true

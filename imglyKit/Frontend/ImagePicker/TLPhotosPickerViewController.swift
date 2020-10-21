@@ -414,7 +414,9 @@ extension TLPhotosPickerViewController {
         self.albumPopView.tableView.delegate = self
         self.albumPopView.tableView.dataSource = self
         self.popArrowImageView.image = TLBundle.podBundleImage(named: "pop_arrow")
+        self.popArrowImageView.tintColor = .systemBlue
         self.subTitleArrowImageView.image = TLBundle.podBundleImage(named: "arrow")
+        self.subTitleArrowImageView.tintColor = .systemBlue
         if #available(iOS 10.0, *), self.usedPrefetch {
             self.collectionView.isPrefetchingEnabled = true
             self.collectionView.prefetchDataSource = self

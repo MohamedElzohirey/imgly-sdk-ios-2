@@ -38,11 +38,12 @@ open class MultiImagesEditorVC: UIViewController {
         }
     }
     @objc fileprivate func cancelTapped(_ sender: UIBarButtonItem?) {
-        if let completionBlock = completionBlock {
+        /*if let completionBlock = completionBlock {
             completionBlock(.cancel, nil, false, nil)
         } else {
             dismiss(animated: true, completion: nil)
-        }
+        }*/
+        dismiss(animated: true, completion: nil)
     }
     @objc func tappedDone(_ sender: UIBarButtonItem?) {
         editorViewController.postText = growingTextView.text

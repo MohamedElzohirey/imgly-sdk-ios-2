@@ -1182,7 +1182,7 @@ extension IMGLYCameraViewController: TLPhotosPickerViewControllerDelegate{
     }
     func openEditor(){
         if selectedAssets.count == 0{
-            self.cancel(nil)
+            //self.cancel(nil)
             return
         }
         var images:[UIImage] = []

@@ -13,7 +13,7 @@ open class TLBundle {
         let podBundle = Bundle(for: TLBundle.self)
         if let url = podBundle.url(forResource: "TLPhotoPickerController", withExtension: "bundle") {
             let bundle = Bundle(url: url)
-            return UIImage(named: named, in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+            return UIImage(named: named, in: bundle, compatibleWith: nil)
         }
         return nil
     }

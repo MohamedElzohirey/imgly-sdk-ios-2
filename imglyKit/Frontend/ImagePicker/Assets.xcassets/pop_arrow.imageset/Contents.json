@@ -6,10 +6,12 @@
       "scale" : "1x"
     },
     {
+      "filename" : "pop_arrow-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "pop_arrow-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

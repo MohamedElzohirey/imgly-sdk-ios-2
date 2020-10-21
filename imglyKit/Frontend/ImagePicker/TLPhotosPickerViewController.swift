@@ -278,9 +278,9 @@ open class TLPhotosPickerViewController: UIViewController {
     
     private func requestAuthorization() {
         if #available(iOS 14.0, *) {
-            /*PHPhotoLibrary.requestAuthorization(for:  .readWrite) { [weak self] status in
+            PHPhotoLibrary.requestAuthorization(for:  .readWrite) { [weak self] status in
                 self?.processAuthorization(status: status)
-            }*/
+            }
         } else {
             PHPhotoLibrary.requestAuthorization { [weak self] status in
                 self?.processAuthorization(status: status)
@@ -290,8 +290,8 @@ open class TLPhotosPickerViewController: UIViewController {
     
     private func checkAuthorization() {
         if #available(iOS 14.0, *) {
-            /*let status = PHPhotoLibrary.authorizationStatus(for:  .readWrite)
-            processAuthorization(status: status)*/
+            let status = PHPhotoLibrary.authorizationStatus(for:  .readWrite)
+            processAuthorization(status: status)
         } else {
             let status = PHPhotoLibrary.authorizationStatus()
             processAuthorization(status: status)
@@ -529,7 +529,7 @@ extension TLPhotosPickerViewController {
     
     @IBAction open func limitButtonTap() {
         if #available(iOS 14.0, *) {
-            //PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
+            PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
         }
     }
     

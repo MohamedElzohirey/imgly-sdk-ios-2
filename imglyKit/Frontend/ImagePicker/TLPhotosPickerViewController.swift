@@ -152,7 +152,9 @@ open class TLPhotosPickerViewController: UIViewController {
     open var selectedAssets = [TLPHAsset]()
     public var configure = TLPhotosPickerConfigure()
     public var customDataSouces: TLPhotopickerDataSourcesProtocol? = nil
-    
+    open override var prefersStatusBarHidden: Bool {
+      return true
+    }
     private var usedCameraButton: Bool {
         return self.configure.usedCameraButton
     }
@@ -265,8 +267,8 @@ open class TLPhotosPickerViewController: UIViewController {
         switch status {
         case .notDetermined:
             requestAuthorization()
-        /*case .limited:
-            loadPhotos(limitMode: true)*/
+        case .limited:
+            loadPhotos(limitMode: true)
         case .authorized:
             loadPhotos(limitMode: false)
         case .restricted, .denied:

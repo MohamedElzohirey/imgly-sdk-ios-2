@@ -123,7 +123,15 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
     
     override open func viewDidLoad() {
         super.viewDidLoad()
-        
+        if #available(iOS 13.0, *) {
+            if let dark = isDark{
+                if dark{
+                    overrideUserInterfaceStyle = .dark
+                }else{
+                    overrideUserInterfaceStyle = .light
+                }
+            }
+        }
         let bundle = Bundle(for: type(of: self))
         navigationItem.title = NSLocalizedString("main-editor.title", tableName: nil, bundle: bundle, value: "", comment: "")
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(IMGLYMainEditorViewController.cancelTapped(_:)))
@@ -222,6 +230,7 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
     // MARK: - EditorViewController
     open var postDirect:Bool = false
     open var postText:String? = nil
+    open var isDark:Bool?
     override open func tappedDone(_ sender: UIBarButtonItem?) {
         if let completionBlock = completionBlock {
             highResolutionImage = highResolutionImage?.imgly_normalizedImage

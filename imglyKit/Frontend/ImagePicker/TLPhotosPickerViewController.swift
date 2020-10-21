@@ -297,11 +297,20 @@ open class TLPhotosPickerViewController: UIViewController {
             processAuthorization(status: status)
         }
     }
-    
+    open var isDark:Bool?
     override open func viewDidLoad() {
         super.viewDidLoad()
         makeUI()
         checkAuthorization()
+        if #available(iOS 13.0, *) {
+            if let dark = isDark{
+                if dark{
+                    overrideUserInterfaceStyle = .dark
+                }else{
+                    overrideUserInterfaceStyle = .light
+                }
+            }
+        }
     }
     
     override open func viewDidLayoutSubviews() {

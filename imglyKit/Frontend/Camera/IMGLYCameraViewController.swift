@@ -60,6 +60,7 @@ open class IMGLYCameraViewController: UIViewController {
     open var hasTextComment = false
     open var placeholder = ""
     open var text = ""
+    open var isDark:Bool?
     open fileprivate(set) lazy var backgroundContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.clear
@@ -261,7 +262,15 @@ var selectedAssets:[TLPHAsset]=[]
     override open func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.black
-        
+        if #available(iOS 13.0, *) {
+            if let dark = isDark{
+                if dark{
+                    overrideUserInterfaceStyle = .dark
+                }else{
+                    overrideUserInterfaceStyle = .light
+                }
+            }
+        }
         configureRecordingModeSwitching()
         configureViewHierarchy()
         configureViewConstraints()
@@ -637,6 +646,7 @@ var selectedAssets:[TLPHAsset]=[]
     public var editorCompletionAllImagesBlockDone: IMGLYEditorAllImagesCompletionBlock?
     fileprivate func showEditorNavigationControllerWithImage(_ images: [UIImage]) {
         let editorViewController = MultiImagesEditorVC()
+        editorViewController.isDark = isDark
         editorViewController.modalPresentationStyle = .fullScreen
         editorViewController.hasTextComment = hasTextComment
         editorViewController.placeholder = placeholder
@@ -752,6 +762,7 @@ var selectedAssets:[TLPHAsset]=[]
     
     @objc open func showCameraRoll(_ sender: UIButton?) {
         let viewController = TLPhotosPickerViewController()
+        viewController.isDark = isDark
         viewController.modalPresentationStyle = .fullScreen
         viewController.delegate = self
         var configure = TLPhotosPickerConfigure()
@@ -1198,6 +1209,7 @@ extension IMGLYCameraViewController: TLPhotosPickerViewControllerDelegate{
               }
           }
           let editorViewController = MultiImagesEditorVC()
+            editorViewController.isDark = isDark
             editorViewController.hasTextComment = hasTextComment
             editorViewController.placeholder = placeholder
             editorViewController.text = text

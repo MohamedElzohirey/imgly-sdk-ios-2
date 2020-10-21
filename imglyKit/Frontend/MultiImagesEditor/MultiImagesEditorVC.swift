@@ -53,8 +53,19 @@ open class MultiImagesEditorVC: UIViewController {
             completionAllImagesBlock?(.done, editedImages, editorViewController.postDirect, editorViewController.postText)
         }
     }
+    open var isDark:Bool?
     open override func viewDidLoad() {
         super.viewDidLoad()
+        editorViewController.isDark = isDark
+        if #available(iOS 13.0, *) {
+            if let dark = isDark{
+                if dark{
+                    overrideUserInterfaceStyle = .dark
+                }else{
+                    overrideUserInterfaceStyle = .light
+                }
+            }
+        }
         NotificationCenter.default.addObserver(self, selector: #selector(MultiImagesEditorVC.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(MultiImagesEditorVC.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 

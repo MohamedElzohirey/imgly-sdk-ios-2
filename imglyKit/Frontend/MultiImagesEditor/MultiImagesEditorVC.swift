@@ -13,6 +13,13 @@ open class MultiImagesEditorVC: UIViewController {
     open var placeholder = ""
     open var text = ""
     open var hasTextComment = false
+    var postButton:UIButton = UIButton(type: .system)
+    func setUpButton(){
+        postButton.titleLabel?.font = UIFont.systemFont(ofSize: 18.0, weight: .bold)
+        postButton.setTitle("Post", for: .normal)
+        postButton.sizeToFit()
+        postButton.addTarget(self, action: #selector(addPost), for: .touchUpInside)
+    }
     var editContainerView: UIView = UIView()
     var allImagesContainerView: UIView = UIView()
     var growingTextViewContainer: UIView = UIView()
@@ -109,7 +116,7 @@ open class MultiImagesEditorVC: UIViewController {
         growingTextView.backgroundColor = .clear
         growingTextView.returnKeyType = .done
         growingTextView.delegate = self
-        growingTextView.minHeight = 40.0
+        //growingTextView.minHeight = 40.0
         growingTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 55)
         growingTextView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         let widthAllImagesConstraint = allImagesContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0)
@@ -129,11 +136,20 @@ open class MultiImagesEditorVC: UIViewController {
         
 
         if hasTextComment{
+            setUpButton()
             growingTextViewContainer.addConstraints([
                 growingTextView.topAnchor.constraint(equalTo: growingTextViewContainer.topAnchor),
                 growingTextView.bottomAnchor.constraint(equalTo: growingTextViewContainer.bottomAnchor),
                 growingTextView.widthAnchor.constraint(equalTo: growingTextViewContainer.widthAnchor, multiplier: 1.0)
             ])
+            growingTextViewContainer.addConstraints(
+            [
+                (postButton.bottomAnchor.constraint(equalTo: growingTextViewContainer.bottomAnchor)),
+                (postButton.widthAnchor.constraint(equalToConstant: 40.0)),
+                (postButton.heightAnchor.constraint(equalToConstant: 40.0)),
+                (postButton.trailingAnchor.constraint(equalTo: growingTextViewContainer.trailingAnchor, constant: -10.0)),
+            ]
+            )
         }
 
 
@@ -152,26 +168,15 @@ open class MultiImagesEditorVC: UIViewController {
     }
     open override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        //postButton.addConstraint(NSLayoutConstraint(item: postButton, attribute: .trailing, relatedBy: .equal, toItem: growingTextView, attribute: .trailing, multiplier: 1, constant: 0))
-        postButton.frame = CGRect(x: 200, y: 10, width: 100, height: 100)
     }
     open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         originalY = self.view.frame.origin.y
-            //+ (self.navigationController?.navigationBar.frame.size.height ?? 0)
     }
     private let ButtonCollectionViewCellSize = CGSize(width: 100, height: 100)
     private let ButtonCollectionViewCellReuseIdentifier = "IMGLYImageItemCollectionViewCell"
     var collectionView:UICollectionView!
-    var postButton:UIButton {
-        let button = UIButton(type: .system)
-        button.frame = CGRect(x: view.frame.size.width - 50, y: 0, width: 40, height: 40)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18.0, weight: .bold)
-        button.setTitle("Post", for: .normal)
-        button.sizeToFit()
-        button.addTarget(self, action: #selector(addPost), for: .touchUpInside)
-        return button
-    }
+
     @objc func addPost() {
         editorViewController.postDirect = true
         editorViewController.postText = growingTextView.text

@@ -110,7 +110,7 @@ open class MultiImagesEditorVC: UIViewController {
         growingTextView.returnKeyType = .done
         growingTextView.delegate = self
         growingTextView.minHeight = 40.0
-        growingTextView.textContainerInset = UIEdgeInsets(top: 5, left: 10, bottom: 5, right: 55)
+        growingTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 55)
         growingTextView.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         let widthAllImagesConstraint = allImagesContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0)
         var height:CGFloat = 100.0

@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         images.append(IMGLYSticker(image: UIImage(named: "8")!, thumbnail: UIImage(named: "8")))
         images.append(IMGLYSticker(image: UIImage(named: "9")!, thumbnail: UIImage(named: "9")))
         images.append(IMGLYSticker(image: UIImage(named: "10")!, thumbnail: UIImage(named: "10")))
-
+        images = addStickers()
         IMGStickersList.stickers = images
         cameraViewController.maximumVideoLength = 15
         cameraViewController.isDark = true
@@ -45,6 +45,37 @@ class ViewController: UIViewController {
         cameraViewController.editorCompletionAllImagesBlockDone = editorAllImagesCompletionBlock
         cameraViewController.videoCompletionBlock = videoCompletionBlock
         present(cameraViewController, animated: true, completion: nil)
+    }
+    func addStickers()->[IMGLYSticker]{
+        let stickerFiles = [
+            "glasses_nerd",
+            "glasses_normal",
+            "glasses_shutter_green",
+            "glasses_shutter_yellow",
+            "glasses_sun",
+            "hat_cap",
+            "hat_party",
+            "hat_sherrif",
+            "hat_zylinder",
+            "heart",
+            "mustache_long",
+            "mustache1",
+            "mustache2",
+            "mustache3",
+            "pipe",
+            "snowflake",
+            "star"
+        ]
+        
+        return stickerFiles.map { (file: String) -> IMGLYSticker? in
+            if let image = UIImage(named: file) {
+                let thumbnail = UIImage(named: file + "_thumbnail")
+                return IMGLYSticker(image: image, thumbnail: thumbnail)
+            }
+            
+            return nil
+            }.filter { $0 != nil }.map { $0! }
+        
     }
     func videoCompletionBlock(result: Bool, url:URL?){
         print(url?.absoluteString)

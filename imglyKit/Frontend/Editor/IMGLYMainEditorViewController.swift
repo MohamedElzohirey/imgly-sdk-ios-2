@@ -49,24 +49,33 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
                 selectedImage: UIImage(named: "icon_option_magic_active", in: bundle, compatibleWith: nil),
                 handler: { [unowned self] in self.subEditorButtonPressed(.magic) },
                 showSelection: { [unowned self] in return self.fixedFilterStack.enhancementFilter._enabled }))
-        
+        handlers.append(
+            IMGLYActionButton(
+                title: NSLocalizedString("main-editor.button.crop", tableName: nil, bundle: bundle, value: "", comment: ""),
+                image: UIImage(named: "icon_option_crop", in: bundle, compatibleWith: nil),
+                handler: { [unowned self] in self.subEditorButtonPressed(.crop) }))
         handlers.append(
             IMGLYActionButton(
                 title: NSLocalizedString("main-editor.button.filter", tableName: nil, bundle: bundle, value: "", comment: ""),
                 image: UIImage(named: "icon_option_filters", in: bundle, compatibleWith: nil),
                 handler: { [unowned self] in self.subEditorButtonPressed(.filter) }))
-        
         handlers.append(
             IMGLYActionButton(
-                title: NSLocalizedString("main-editor.button.stickers", tableName: nil, bundle: bundle, value: "", comment: ""),
-                image: UIImage(named: "icon_option_sticker", in: bundle, compatibleWith: nil),
-                handler: { [unowned self] in self.subEditorButtonPressed(.stickers) }))
-        
+                title: NSLocalizedString("main-editor.button.text", tableName: nil, bundle: bundle, value: "", comment: ""),
+                image: UIImage(named: "icon_option_text", in: bundle, compatibleWith: nil),
+                handler: { [unowned self] in self.subEditorButtonPressed(.text) }))
         handlers.append(
             IMGLYActionButton(
                 title: NSLocalizedString("main-editor.button.orientation", tableName: nil, bundle: bundle, value: "", comment: ""),
                 image: UIImage(named: "icon_option_orientation", in: bundle, compatibleWith: nil),
                 handler: { [unowned self] in self.subEditorButtonPressed(.orientation) }))
+        if showStickers{
+            handlers.append(
+                IMGLYActionButton(
+                    title: NSLocalizedString("main-editor.button.stickers", tableName: nil, bundle: bundle, value: "", comment: ""),
+                    image: UIImage(named: "icon_option_sticker", in: bundle, compatibleWith: nil),
+                    handler: { [unowned self] in self.subEditorButtonPressed(.stickers) }))
+        }
         
         handlers.append(
             IMGLYActionButton(
@@ -74,11 +83,6 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
                 image: UIImage(named: "icon_option_focus", in: bundle, compatibleWith: nil),
                 handler: { [unowned self] in self.subEditorButtonPressed(.focus) }))
         
-        handlers.append(
-            IMGLYActionButton(
-                title: NSLocalizedString("main-editor.button.crop", tableName: nil, bundle: bundle, value: "", comment: ""),
-                image: UIImage(named: "icon_option_crop", in: bundle, compatibleWith: nil),
-                handler: { [unowned self] in self.subEditorButtonPressed(.crop) }))
         
         handlers.append(
             IMGLYActionButton(
@@ -98,12 +102,7 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
                 image: UIImage(named: "icon_option_saturation", in: bundle, compatibleWith: nil),
                 handler: { [unowned self] in self.subEditorButtonPressed(.saturation) }))
         
-        handlers.append(
-            IMGLYActionButton(
-                title: NSLocalizedString("main-editor.button.text", tableName: nil, bundle: bundle, value: "", comment: ""),
-                image: UIImage(named: "icon_option_text", in: bundle, compatibleWith: nil),
-                handler: { [unowned self] in self.subEditorButtonPressed(.text) }))
-        
+
         return handlers
         }()
     
@@ -231,6 +230,7 @@ open class IMGLYMainEditorViewController: IMGLYEditorViewController {
     open var postDirect:Bool = false
     open var postText:String? = nil
     open var isDark:Bool?
+    open var showStickers = false
     override open func tappedDone(_ sender: UIBarButtonItem?) {
         if let completionBlock = completionBlock {
             highResolutionImage = highResolutionImage?.imgly_normalizedImage

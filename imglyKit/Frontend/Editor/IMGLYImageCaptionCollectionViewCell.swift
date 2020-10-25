@@ -106,11 +106,21 @@ class IMGLYImageCollectionViewCell: UICollectionViewCell {
     
     lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
         }()
-    
+    lazy var selectionView: UIView = {
+        let selectionView = UIView()
+        selectionView.clipsToBounds = true
+        selectionView.isHidden = true
+        selectionView.layer.borderWidth = 4
+        selectionView.layer.cornerRadius = 0
+        selectionView.layer.borderColor = UIColor(red: 88/255, green: 144/255, blue: 255/255, alpha: 1.0).cgColor
+        selectionView.translatesAutoresizingMaskIntoConstraints = false
+        return selectionView
+        }()
     
     // MARK: - Initializers
     
@@ -132,11 +142,18 @@ class IMGLYImageCollectionViewCell: UICollectionViewCell {
     
     fileprivate func configureViews() {
         addSubview(imageView)
+        addSubview(selectionView)
         let horizontalConstraint = imageView.centerXAnchor.constraint(equalTo: centerXAnchor)
         let verticalConstraint = imageView.topAnchor.constraint(equalTo: topAnchor)
         let widthConstraint = imageView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.0)
         let heightConstraint = imageView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1.0, constant: 0)
         addConstraints([horizontalConstraint, verticalConstraint, widthConstraint, heightConstraint])
+        
+        let horizontalSelectionConstraint = selectionView.centerXAnchor.constraint(equalTo: centerXAnchor)
+        let verticalSelectionConstraint = selectionView.topAnchor.constraint(equalTo: topAnchor)
+        let widthSelectionConstraint = selectionView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1.0)
+        let heightSelectionConstraint = selectionView.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1.0, constant: 0)
+        addConstraints([horizontalSelectionConstraint, verticalSelectionConstraint, widthSelectionConstraint, heightSelectionConstraint])
     }
     
     // MARK: - Subclasses

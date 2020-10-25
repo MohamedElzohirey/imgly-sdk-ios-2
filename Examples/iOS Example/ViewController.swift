@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     @IBAction func  open(){
         cameraViewController.maximumVideoLength = 15
         cameraViewController.isDark = true
+        cameraViewController.showStickers = false
         cameraViewController.hasTextComment = true
         cameraViewController.placeholder = "Tesss"
         cameraViewController.text = "Here we go"

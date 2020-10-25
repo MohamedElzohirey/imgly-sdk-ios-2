@@ -13,6 +13,7 @@ open class MultiImagesEditorVC: UIViewController {
     open var placeholder = ""
     open var text = ""
     open var hasTextComment = false
+    open var showStickers = false
     var postButton:UIButton = UIButton(type: .system)
     func setUpButton(){
         postButton.titleLabel?.font = UIFont.systemFont(ofSize: 18.0, weight: .bold)
@@ -64,6 +65,7 @@ open class MultiImagesEditorVC: UIViewController {
     open override func viewDidLoad() {
         super.viewDidLoad()
         editorViewController.isDark = isDark
+        editorViewController.showStickers = showStickers
         if #available(iOS 13.0, *) {
             if let dark = isDark{
                 if dark{
@@ -91,9 +93,11 @@ open class MultiImagesEditorVC: UIViewController {
         if hasTextComment{
             growingTextViewContainer.addSubview(growingTextView)
             growingTextViewContainer.addSubview (postButton)
-            growingTextViewContainer.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+            growingTextViewContainer.backgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
             growingTextView.placeholder = placeholder
             growingTextView.text = text
+            growingTextView.textColor = .white
+            growingTextView.placeholderColor = UIColor.white.withAlphaComponent(0.3)
         }
         view.addSubview(growingTextViewContainer)
         allImagesContainerView.backgroundColor = .blue
@@ -215,6 +219,11 @@ extension MultiImagesEditorVC: UICollectionViewDataSource {
         
         if let buttonCell = cell as? IMGLYImageItemCollectionViewCell {
             buttonCell.imageView.image = editedImages[indexPath.row]
+            if selectedRow == indexPath.row {
+                buttonCell.selectionView.isHidden = false
+            }else{
+                buttonCell.selectionView.isHidden = true
+            }
         }
         
         return cell
@@ -227,6 +236,16 @@ extension MultiImagesEditorVC: UICollectionViewDelegate {
         editorViewController.highResolutionImage = images[indexPath.row]
         editorViewController.fixedFilterStack = filters[indexPath.row]
         editorViewController.viewDidLoad()
+        collectionView.visibleCells.forEach { (cell) in
+            if let cell = cell as? IMGLYImageItemCollectionViewCell{
+                if selectedRow == indexPath.row {
+                    cell.selectionView.isHidden = true
+                }
+            }
+        }
+        if let cell = collectionView.cellForItem(at: indexPath) as? IMGLYImageItemCollectionViewCell{
+            cell.selectionView.isHidden = false
+        }
     }
 }
 

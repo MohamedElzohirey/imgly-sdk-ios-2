@@ -61,6 +61,7 @@ open class IMGLYCameraViewController: UIViewController {
     open var placeholder = ""
     open var text = ""
     open var isDark:Bool?
+    open var showStickers = false
     open fileprivate(set) lazy var backgroundContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.clear
@@ -647,6 +648,7 @@ var selectedAssets:[TLPHAsset]=[]
     fileprivate func showEditorNavigationControllerWithImage(_ images: [UIImage]) {
         let editorViewController = MultiImagesEditorVC()
         editorViewController.isDark = isDark
+        editorViewController.showStickers = showStickers
         editorViewController.modalPresentationStyle = .fullScreen
         editorViewController.hasTextComment = hasTextComment
         editorViewController.placeholder = placeholder
@@ -1210,6 +1212,7 @@ extension IMGLYCameraViewController: TLPhotosPickerViewControllerDelegate{
           }
           let editorViewController = MultiImagesEditorVC()
             editorViewController.isDark = isDark
+            editorViewController.showStickers = showStickers
             editorViewController.hasTextComment = hasTextComment
             editorViewController.placeholder = placeholder
             editorViewController.text = text

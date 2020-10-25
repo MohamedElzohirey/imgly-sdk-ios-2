@@ -20,9 +20,22 @@ class ViewController: UIViewController {
     let cameraViewController = IMGLYCameraViewController(recordingModes: [.photo, .video])
     
     @IBAction func  open(){
+        var images:[IMGLYSticker] = []
+        images.append(IMGLYSticker(image: UIImage(named: "1")!, thumbnail: UIImage(named: "1")))
+        images.append(IMGLYSticker(image: UIImage(named: "2")!, thumbnail: UIImage(named: "2")))
+        images.append(IMGLYSticker(image: UIImage(named: "3")!, thumbnail: UIImage(named: "3")))
+        images.append(IMGLYSticker(image: UIImage(named: "4")!, thumbnail: UIImage(named: "4")))
+        images.append(IMGLYSticker(image: UIImage(named: "5")!, thumbnail: UIImage(named: "5")))
+        images.append(IMGLYSticker(image: UIImage(named: "6")!, thumbnail: UIImage(named: "6")))
+        images.append(IMGLYSticker(image: UIImage(named: "7")!, thumbnail: UIImage(named: "7")))
+        images.append(IMGLYSticker(image: UIImage(named: "8")!, thumbnail: UIImage(named: "8")))
+        images.append(IMGLYSticker(image: UIImage(named: "9")!, thumbnail: UIImage(named: "9")))
+        images.append(IMGLYSticker(image: UIImage(named: "10")!, thumbnail: UIImage(named: "10")))
+
+        IMGStickersList.stickers = images
         cameraViewController.maximumVideoLength = 15
         cameraViewController.isDark = true
-        cameraViewController.showStickers = false
+        cameraViewController.showStickers = true
         cameraViewController.hasTextComment = true
         cameraViewController.placeholder = "Tesss"
         cameraViewController.text = "Here we go"

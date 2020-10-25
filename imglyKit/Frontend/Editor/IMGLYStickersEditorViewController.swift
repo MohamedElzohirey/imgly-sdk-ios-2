@@ -11,11 +11,13 @@ import UIKit
 let StickersCollectionViewCellSize = CGSize(width: 90, height: 90)
 let StickersCollectionViewCellReuseIdentifier = "StickersCollectionViewCell"
 
+open class IMGStickersList{
+    public static var stickers: [IMGLYSticker] = []
+}
 open class IMGLYStickersEditorViewController: IMGLYSubEditorViewController {
 
     // MARK: - Properties
-    
-    open var stickersDataSource = IMGLYStickersDataSource()
+    open var stickersDataSource = IMGLYStickersDataSource(stickers: IMGStickersList.stickers)
     open fileprivate(set) lazy var stickersClipView: UIView = {
         let view = UIView()
         view.clipsToBounds = true

@@ -15,7 +15,7 @@ public protocol IMGLYStickersDataSourceDelegate: class, UICollectionViewDataSour
 open class IMGLYStickersDataSource: NSObject, IMGLYStickersDataSourceDelegate {
     public let stickers: [IMGLYSticker]
     
-    override init() {
+    /*override init() {
         let stickerFiles = [
             "glasses_nerd",
             "glasses_normal",
@@ -46,7 +46,7 @@ open class IMGLYStickersDataSource: NSObject, IMGLYStickersDataSourceDelegate {
             }.filter { $0 != nil }.map { $0! }
         
         super.init()
-    }
+    }*/
     
     public init(stickers: [IMGLYSticker]) {
         self.stickers = stickers

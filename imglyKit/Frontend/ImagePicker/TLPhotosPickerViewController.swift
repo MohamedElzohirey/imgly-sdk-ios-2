@@ -400,7 +400,7 @@ extension TLPhotosPickerViewController {
         layout.itemSize = self.thumbnailSize
         self.collectionView.collectionViewLayout = layout
         self.placeholderThumbnail = centerAtRect(image: self.configure.placeholderIcon, rect: CGRect(x: 0, y: 0, width: width, height: width))
-        self.cameraImage = centerAtRect(image: self.configure.cameraIcon, rect: CGRect(x: 0, y: 0, width: width, height: width), bgColor: self.configure.cameraBgColor)
+        self.cameraImage = centerAtRect(image: self.configure.cameraIcon, rect: CGRect(x: 0, y: 0, width: width*3.0, height: width*3.0), bgColor: self.configure.cameraBgColor)
     }
     
     @objc open func makeUI() {

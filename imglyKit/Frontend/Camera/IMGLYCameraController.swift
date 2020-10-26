@@ -488,7 +488,9 @@ open class IMGLYCameraController: NSObject {
                     } catch {
                         fatalError()
                     }
-                    device.torchMode = newValue
+                    if device.isTorchModeSupported(newValue){
+                        device.torchMode = newValue
+                    }
                     device.unlockForConfiguration()
                 }
                 

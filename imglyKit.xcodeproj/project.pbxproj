@@ -331,6 +331,8 @@
 		D9A3BC032545C2B600524297 /* Pitched.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A3BBEF2545C2B600524297 /* Pitched.png */; };
 		D9A3BC082545C2C400524297 /* Winter.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A3BC062545C2C300524297 /* Winter.png */; };
 		D9A3BC092545C2C400524297 /* X400.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A3BC072545C2C400524297 /* X400.png */; };
+		D9C37F3D2557D5E100696CC4 /* TLCameraRollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C37F3C2557D5E100696CC4 /* TLCameraRollView.swift */; };
+		D9C37F412557D5F100696CC4 /* TLCameraRollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C37F402557D5F100696CC4 /* TLCameraRollView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -564,6 +566,8 @@
 		D9A3BBEF2545C2B600524297 /* Pitched.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pitched.png; sourceTree = "<group>"; };
 		D9A3BC062545C2C300524297 /* Winter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Winter.png; sourceTree = "<group>"; };
 		D9A3BC072545C2C400524297 /* X400.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X400.png; sourceTree = "<group>"; };
+		D9C37F3C2557D5E100696CC4 /* TLCameraRollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLCameraRollView.swift; sourceTree = "<group>"; };
+		D9C37F402557D5F100696CC4 /* TLCameraRollView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TLCameraRollView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -937,6 +941,8 @@
 				D94A3AC8253C6BAE005BD2E2 /* TLPhotopickerDataSourcesProtocol.swift */,
 				D94A3AC9253C6BAE005BD2E2 /* TLCollectionTableViewCell.swift */,
 				D94A3ACA253C6BAE005BD2E2 /* TLCollectionTableViewCell.xib */,
+				D9C37F3C2557D5E100696CC4 /* TLCameraRollView.swift */,
+				D9C37F402557D5F100696CC4 /* TLCameraRollView.xib */,
 			);
 			path = ImagePicker;
 			sourceTree = "<group>";
@@ -1130,6 +1136,7 @@
 				D9A3BBFC2545C2B600524297 /* Twilight.png in Resources */,
 				D9A3BC002545C2B600524297 /* Pale.png in Resources */,
 				D9A3BBC62545C29900524297 /* Lucid.png in Resources */,
+				D9C37F412557D5F100696CC4 /* TLCameraRollView.xib in Resources */,
 				D9A3BBD52545C29900524297 /* Food.png in Resources */,
 				D9A3BBC92545C29900524297 /* Lomo.png in Resources */,
 				D9A3BBD62545C29900524297 /* Lomo100.png in Resources */,
@@ -1302,6 +1309,7 @@
 				2BF4D3E01AF1150500C801B2 /* IMGLYNavigationController.swift in Sources */,
 				2BF4D3D41AF1150500C801B2 /* IMGLYCropRectComponent.swift in Sources */,
 				2BF4D50A1AF1155E00C801B2 /* IMGLYEppHighContrastFilter.swift in Sources */,
+				D9C37F3D2557D5E100696CC4 /* TLCameraRollView.swift in Sources */,
 				2BF4D3E41AF1150500C801B2 /* IMGLYSticker.swift in Sources */,
 				2BF4D4AA1AF1154B00C801B2 /* IMGLYCropFilter.swift in Sources */,
 				2BF4D5071AF1155E00C801B2 /* IMGLYCreamyFilter.swift in Sources */,

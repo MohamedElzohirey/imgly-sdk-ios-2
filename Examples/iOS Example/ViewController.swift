@@ -10,10 +10,12 @@ import UIKit
 import imglyKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let camera: TLCameraRollView = TLCameraRollView.fromNib()
+        camera.delegate = self
+        view.addSubview(camera)
         // Do any additional setup after loading the view.
         //navigationController?.pushViewController(cameraViewController, animated: true)
     }
@@ -89,5 +91,17 @@ class ViewController: UIViewController {
     func editorCompletionBlock(result: IMGLYEditorResult, image: UIImage?, postDirect: Bool, postText: String?) {
         cameraViewController.dismiss(animated: true, completion: nil)
         guard let image = image else{return}
+    }
+}
+extension ViewController: TLCameraRollViewDelegate{
+    func selectImage(image: UIImage?) {
+        imageView.image = image
+    }
+    
+    
+}
+extension UIView {
+    class func fromNib<T: UIView>() -> T {
+        return Bundle(for: T.self).loadNibNamed(String(describing: T.self), owner: nil, options: nil)![0] as! T
     }
 }

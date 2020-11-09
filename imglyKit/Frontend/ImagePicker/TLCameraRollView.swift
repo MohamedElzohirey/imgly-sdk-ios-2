@@ -15,7 +15,17 @@ import PhotosUI
 open class TLCameraRollView: UIView {
     open var cameraImage:UIImage? = TLBundle.podBundleImage(named: "camera")
     open var delegate:TLCameraRollViewDelegate?
-    open var isDark:Bool = false
+    open var isDark:Bool = false{
+        didSet{
+            if isDark{
+                backgroundColor = .black
+                collectionView.backgroundColor = .black
+            }else{
+                backgroundColor = .white
+                collectionView.backgroundColor = .white
+            }
+        }
+    }
     private var queue = DispatchQueue(label: "tilltue.photos.pikcker.queue")
     private var photoLibrary = TLPhotoLibrary()
     private var focusedCollection: TLAssetsCollection? = nil
@@ -29,13 +39,6 @@ open class TLCameraRollView: UIView {
         registerNib(nibName: "TLPhotoCollectionViewCRollCell", bundle: TLBundle.bundle())
         self.customDataSouces?.registerSupplementView(collectionView: self.collectionView)
         initItemSize()
-        if isDark{
-            backgroundColor = .black
-            collectionView.backgroundColor = .black
-        }else{
-            backgroundColor = .white
-            collectionView.backgroundColor = .white
-        }
     }
     private func loadPhotos(limitMode: Bool) {
         self.photoLibrary.limitMode = limitMode
@@ -94,8 +97,10 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
             cell.imageView?.layer.masksToBounds = true
             if isDark{
                 cell.backgroundColor = .black
+                cell.contentView.backgroundColor = .black
             }else{
                 cell.backgroundColor = .white
+                cell.contentView.backgroundColor = .white
             }
             if  indexPath.section == 0 && indexPath.row == 0{}else{
                 cell.indicator?.startAnimating()

@@ -18,6 +18,7 @@ class ViewController: UIViewController {
         center.y = center.y - 200
         camera.center = center
         camera.delegate = self
+        camera.isDark = false
         view.addSubview(camera)
         // Do any additional setup after loading the view.
         //navigationController?.pushViewController(cameraViewController, animated: true)

@@ -14,6 +14,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let camera: TLCameraRollView = TLCameraRollView.fromNib()
+        var center = view.center
+        center.y = center.y - 200
+        camera.center = center
         camera.delegate = self
         view.addSubview(camera)
         // Do any additional setup after loading the view.
@@ -94,8 +97,10 @@ class ViewController: UIViewController {
     }
 }
 extension ViewController: TLCameraRollViewDelegate{
-    func selectImage(image: UIImage?) {
-        imageView.image = image
+    func selectImage(image: UIImage?, isRealImage: Bool) {
+        if isRealImage{
+            imageView.image = image
+        }
     }
     
     

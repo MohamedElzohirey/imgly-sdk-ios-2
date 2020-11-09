@@ -10,10 +10,12 @@ import UIKit
 import  Photos
 import PhotosUI
  public protocol TLCameraRollViewDelegate: class {
-    func selectImage(image: UIImage?)
+    func selectImage(image: UIImage?, isRealImage:Bool)
 }
 open class TLCameraRollView: UIView {
+    open var cameraImage:UIImage? = TLBundle.podBundleImage(named: "camera")
     open var delegate:TLCameraRollViewDelegate?
+    open var isDark:Bool = false
     private var queue = DispatchQueue(label: "tilltue.photos.pikcker.queue")
     private var photoLibrary = TLPhotoLibrary()
     private var focusedCollection: TLAssetsCollection? = nil
@@ -24,9 +26,16 @@ open class TLCameraRollView: UIView {
     open override func awakeFromNib() {
         super.awakeFromNib()
         loadPhotos(limitMode: false)
-        registerNib(nibName: "TLPhotoCollectionViewCell", bundle: TLBundle.bundle())
+        registerNib(nibName: "TLPhotoCollectionViewCRollCell", bundle: TLBundle.bundle())
         self.customDataSouces?.registerSupplementView(collectionView: self.collectionView)
         initItemSize()
+        if isDark{
+            backgroundColor = .black
+            collectionView.backgroundColor = .black
+        }else{
+            backgroundColor = .white
+            collectionView.backgroundColor = .white
+        }
     }
     private func loadPhotos(limitMode: Bool) {
         self.photoLibrary.limitMode = limitMode
@@ -40,10 +49,12 @@ open class TLCameraRollView: UIView {
         guard let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
-        let count = CGFloat(self.configure.numberOfColumn)
-        let width = (self.frame.size.width-(5*(count-1)))/count
-        self.thumbnailSize = CGSize(width: width, height: self.frame.size.height)
+        let width:CGFloat = 110.0
+        self.thumbnailSize = CGSize(width: width, height: width)
         layout.itemSize = self.thumbnailSize
+        layout.minimumLineSpacing = 2
+        layout.sectionInset = .zero
+        layout.minimumInteritemSpacing = 2
         self.collectionView.collectionViewLayout = layout
     }
     
@@ -63,8 +74,9 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
     
     //Delegate
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? TLPhotoCollectionViewCell{
-            self.delegate?.selectImage(image: cell.imageView?.image)
+        if let cell = collectionView.cellForItem(at: indexPath) as? TLPhotoCollectionViewCRollCell{
+            let real:Bool = !(indexPath.section == 0 && indexPath.row == 0)
+            self.delegate?.selectImage(image: cell.imageView?.image, isRealImage: real)
         }
     }
     
@@ -73,30 +85,45 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
     
     //Datasource
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        func makeCell(nibName: String) -> TLPhotoCollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nibName, for: indexPath) as! TLPhotoCollectionViewCell
+        func makeCell(nibName: String) -> TLPhotoCollectionViewCRollCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nibName, for: indexPath) as! TLPhotoCollectionViewCRollCell
             cell.configure = self.configure
             //cell.imageView?.image = self.placeholderThumbnail
             cell.liveBadgeImageView?.image = nil
+            cell.imageView?.layer.cornerRadius = 18.0
+            cell.imageView?.layer.masksToBounds = true
+            if isDark{
+                cell.backgroundColor = .black
+            }else{
+                cell.backgroundColor = .white
+            }
+            if  indexPath.section == 0 && indexPath.row == 0{}else{
+                cell.indicator?.startAnimating()
+            }
             return cell
         }
-        let nibName = self.configure.nibSet?.nibName ?? "TLPhotoCollectionViewCell"
+        let nibName = self.configure.nibSet?.nibName ?? "TLPhotoCollectionViewCRollCell"
         var cell = makeCell(nibName: nibName)
-        guard let collection = self.focusedCollection else { return cell }
+        
+        guard let collection = self.focusedCollection else {return cell}
         cell.isCameraCell = collection.useCameraButton && indexPath.section == 0 && indexPath.row == 0
         if cell.isCameraCell {
             if let nibName = self.configure.cameraCellNibSet?.nibName {
                 cell = makeCell(nibName: nibName)
             }else{
-                //cell.imageView?.image = self.cameraImage
+                cell.imageView?.image = self.cameraImage
             }
             return cell
         }
-        guard let asset = collection.getTLAsset(at: indexPath) else { return cell }
+        guard let asset = collection.getTLAsset(at: indexPath) else {
+            cell.indicator?.stopAnimating()
+            cell.imageView?.image = self.cameraImage
+            return cell
+        }
         
         cell.asset = asset.phAsset
         if asset.state == .progress {
-            cell.indicator?.startAnimating()
+            //cell.indicator?.startAnimating()
         }else {
             cell.indicator?.stopAnimating()
         }
@@ -111,6 +138,7 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
                     DispatchQueue.main.async {
                             cell?.imageView?.image = image
                             cell?.update(with: phAsset)
+                            cell?.indicator?.stopAnimating()
                     }
                 }
             }else {
@@ -120,7 +148,7 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
                         DispatchQueue.main.async {
                             cell?.imageView?.image = image
                             cell?.update(with: phAsset)
-
+                            cell?.indicator?.stopAnimating()
                         }
                     })
                 }
@@ -152,7 +180,7 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
     }
     
     public func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let cell = cell as? TLPhotoCollectionViewCell else {
+        guard let cell = cell as? TLPhotoCollectionViewCRollCell else {
             return
         }
         cell.willDisplayCell()
@@ -161,6 +189,9 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
 
 // MARK: - CustomDataSources for supplementary view
 extension TLCameraRollView: UICollectionViewDelegateFlowLayout {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+           return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let identifier = self.customDataSouces?.supplementIdentifier(kind: kind) else {
             return UICollectionReusableView()

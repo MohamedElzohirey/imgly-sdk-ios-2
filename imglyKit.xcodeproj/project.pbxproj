@@ -333,6 +333,8 @@
 		D9A3BC092545C2C400524297 /* X400.png in Resources */ = {isa = PBXBuildFile; fileRef = D9A3BC072545C2C400524297 /* X400.png */; };
 		D9C37F3D2557D5E100696CC4 /* TLCameraRollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C37F3C2557D5E100696CC4 /* TLCameraRollView.swift */; };
 		D9C37F412557D5F100696CC4 /* TLCameraRollView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C37F402557D5F100696CC4 /* TLCameraRollView.xib */; };
+		D9C37F942558439900696CC4 /* TLPhotoCollectionViewCRollCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9C37F922558439700696CC4 /* TLPhotoCollectionViewCRollCell.xib */; };
+		D9C37F952558439900696CC4 /* TLPhotoCollectionViewCRollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9C37F932558439800696CC4 /* TLPhotoCollectionViewCRollCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -568,6 +570,8 @@
 		D9A3BC072545C2C400524297 /* X400.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = X400.png; sourceTree = "<group>"; };
 		D9C37F3C2557D5E100696CC4 /* TLCameraRollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLCameraRollView.swift; sourceTree = "<group>"; };
 		D9C37F402557D5F100696CC4 /* TLCameraRollView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TLCameraRollView.xib; sourceTree = "<group>"; };
+		D9C37F922558439700696CC4 /* TLPhotoCollectionViewCRollCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TLPhotoCollectionViewCRollCell.xib; sourceTree = "<group>"; };
+		D9C37F932558439800696CC4 /* TLPhotoCollectionViewCRollCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLPhotoCollectionViewCRollCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -941,6 +945,8 @@
 				D94A3AC8253C6BAE005BD2E2 /* TLPhotopickerDataSourcesProtocol.swift */,
 				D94A3AC9253C6BAE005BD2E2 /* TLCollectionTableViewCell.swift */,
 				D94A3ACA253C6BAE005BD2E2 /* TLCollectionTableViewCell.xib */,
+				D9C37F932558439800696CC4 /* TLPhotoCollectionViewCRollCell.swift */,
+				D9C37F922558439700696CC4 /* TLPhotoCollectionViewCRollCell.xib */,
 				D9C37F3C2557D5E100696CC4 /* TLCameraRollView.swift */,
 				D9C37F402557D5F100696CC4 /* TLCameraRollView.xib */,
 			);
@@ -1149,6 +1155,7 @@
 				D9A3BBD72545C29900524297 /* Glam.png in Resources */,
 				2BF4D5451AF115A200C801B2 /* Localizable.strings in Resources */,
 				D9A3BBD12545C29900524297 /* Front.png in Resources */,
+				D9C37F942558439900696CC4 /* TLPhotoCollectionViewCRollCell.xib in Resources */,
 				D9A3BBF12545C2B600524297 /* Orchid.png in Resources */,
 				D9A3BC082545C2C400524297 /* Winter.png in Resources */,
 				2BF4D49C1AF1153B00C801B2 /* Tommaso.ttf in Resources */,
@@ -1355,6 +1362,7 @@
 				2BF4D3DD1AF1150500C801B2 /* IMGLYImageCaptionCollectionViewCell.swift in Sources */,
 				D9679996253EDF37001B6410 /* SimpleGrowingTextView.swift in Sources */,
 				2BF4D3D31AF1150500C801B2 /* IMGLYCropEditorViewController.swift in Sources */,
+				D9C37F952558439900696CC4 /* TLPhotoCollectionViewCRollCell.swift in Sources */,
 				2BF4D3DB1AF1150500C801B2 /* IMGLYGradientViewDelegate.swift in Sources */,
 				2BF4D3D01AF1150500C801B2 /* IMGLYCircleGradientView.swift in Sources */,
 				2BF4D5201AF1155E00C801B2 /* IMGLYNeatFilter.swift in Sources */,

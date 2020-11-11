@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -95,6 +95,13 @@
                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DZc-ag-e55">
                         <rect key="frame" x="40" y="40" width="20" height="20"/>
                     </activityIndicatorView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pickerSelected" translatesAutoresizingMaskIntoConstraints="NO" id="Abx-i8-lm9">
+                        <rect key="frame" x="71" y="71" width="24" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="24" id="eZA-fI-DXS"/>
+                            <constraint firstAttribute="height" constant="24" id="xic-en-9oH"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
@@ -117,9 +124,11 @@
                 <constraint firstItem="d1a-KW-Ta4" firstAttribute="width" secondItem="IF3-4e-v0j" secondAttribute="width" constant="10" id="clS-DI-jvL"/>
                 <constraint firstItem="d1a-KW-Ta4" firstAttribute="top" secondItem="IF3-4e-v0j" secondAttribute="top" constant="-5" id="d3r-HZ-6We"/>
                 <constraint firstItem="DZc-ag-e55" firstAttribute="centerX" secondItem="IF3-4e-v0j" secondAttribute="centerX" id="fnn-1c-fSn"/>
+                <constraint firstAttribute="trailing" secondItem="Abx-i8-lm9" secondAttribute="trailing" constant="5" id="q80-dP-dFi"/>
                 <constraint firstItem="DZc-ag-e55" firstAttribute="centerY" secondItem="IF3-4e-v0j" secondAttribute="centerY" id="qZc-2h-nOx"/>
                 <constraint firstItem="d1a-KW-Ta4" firstAttribute="leading" secondItem="IF3-4e-v0j" secondAttribute="leading" constant="-5" id="sOj-ms-Oo3"/>
                 <constraint firstItem="0cR-fZ-1bW" firstAttribute="top" secondItem="IF3-4e-v0j" secondAttribute="top" id="sSC-fd-MoT"/>
+                <constraint firstAttribute="bottom" secondItem="Abx-i8-lm9" secondAttribute="bottom" constant="5" id="wRT-GP-eCX"/>
                 <constraint firstAttribute="bottom" secondItem="0cR-fZ-1bW" secondAttribute="bottom" id="xzA-tS-EVK"/>
             </constraints>
             <connections>
@@ -134,9 +143,13 @@
                 <outlet property="playerView" destination="apl-2Q-Hz7" id="vTI-ie-mcV"/>
                 <outlet property="selectedHeight" destination="VMJ-Qp-D4N" id="uVe-tQ-4q5"/>
                 <outlet property="selectedView" destination="d1a-KW-Ta4" id="c31-4y-72g"/>
+                <outlet property="selectionImageView" destination="Abx-i8-lm9" id="HpK-qr-Hx2"/>
                 <outlet property="videoIconImageView" destination="Uzf-HJ-aUY" id="d7e-Bl-181"/>
             </connections>
             <point key="canvasLocation" x="32" y="-10"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="pickerSelected" width="24" height="24"/>
+    </resources>
 </document>

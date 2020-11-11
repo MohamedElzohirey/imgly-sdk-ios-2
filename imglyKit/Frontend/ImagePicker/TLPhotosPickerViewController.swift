@@ -304,6 +304,9 @@ open class TLPhotosPickerViewController: UIViewController {
         super.viewDidLoad()
         makeUI()
         checkAuthorization()
+        if isDark ?? false{
+            collectionView.backgroundColor = .black
+        }
         if #available(iOS 13.0, *) {
             if let dark = isDark{
                 if dark{
@@ -396,7 +399,7 @@ extension TLPhotosPickerViewController {
         }
         let count = CGFloat(self.configure.numberOfColumn)
         let width = (self.view.frame.size.width-(5*(count-1)))/count
-        self.thumbnailSize = CGSize(width: width, height: width)
+        self.thumbnailSize = CGSize(width: width, height: width*1.7)
         layout.itemSize = self.thumbnailSize
         self.collectionView.collectionViewLayout = layout
         self.placeholderThumbnail = centerAtRect(image: self.configure.placeholderIcon, rect: CGRect(x: 0, y: 0, width: width, height: width))

@@ -31,6 +31,7 @@ open class TLPlayerView: UIView {
 
 open class TLPhotoCollectionViewCell: UICollectionViewCell {
     private var observer: NSObjectProtocol?
+    @IBOutlet open var selectionImageView: UIImageView?
     @IBOutlet open var imageView: UIImageView?
     @IBOutlet open var playerView: TLPlayerView?
     @IBOutlet open var livePhotoView: PHLivePhotoView?
@@ -90,7 +91,8 @@ open class TLPhotoCollectionViewCell: UICollectionViewCell {
     
     @objc open var selectedAsset: Bool = false {
         willSet(newValue) {
-            self.selectedView?.isHidden = !newValue
+            //self.selectedView?.isHidden = !newValue
+            self.selectionImageView?.isHidden = !newValue
             self.durationView?.backgroundColor = newValue ? self.configure.selectedColor : UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
             if !newValue {
                 self.orderLabel?.text = ""

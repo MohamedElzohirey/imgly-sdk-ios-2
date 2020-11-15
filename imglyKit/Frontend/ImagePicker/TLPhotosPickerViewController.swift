@@ -131,9 +131,9 @@ open class TLPhotosPickerViewController: UIViewController {
     @IBOutlet open var navigationBar: UINavigationBar!
     @IBOutlet open var titleView: UIView!
     @IBOutlet open var titleLabel: UILabel!
-    @IBOutlet open var subTitleStackView: UIStackView!
-    @IBOutlet open var subTitleLabel: UILabel!
-    @IBOutlet open var subTitleArrowImageView: UIImageView!
+    @IBOutlet open var subTitleStackView: UIStackView?
+    @IBOutlet open var subTitleLabel: UILabel?
+    @IBOutlet open var subTitleArrowImageView: UIImageView?
     @IBOutlet open var albumPopView: TLAlbumPopView!
     @IBOutlet open var collectionView: UICollectionView!
     @IBOutlet open var indicator: UIActivityIndicatorView!
@@ -146,7 +146,9 @@ open class TLPhotosPickerViewController: UIViewController {
     @IBOutlet open var emptyImageView: UIImageView!
     @IBOutlet open var emptyMessageLabel: UILabel!
     @IBOutlet open var photosButton: UIBarButtonItem!
-    
+    @IBOutlet open var arrowImageView: UIImageView!
+    @IBOutlet open var selectManyImageView: UIImageView!
+    @IBOutlet open var selectManyLabel: UILabel!
     public weak var delegate: TLPhotosPickerViewControllerDelegate? = nil
     public weak var logDelegate: TLPhotosPickerLogDelegate? = nil
     open var selectedAssets = [TLPHAsset]()
@@ -300,12 +302,24 @@ open class TLPhotosPickerViewController: UIViewController {
         }
     }
     open var isDark:Bool?
+    open var selectManyString:String?
     override open func viewDidLoad() {
         super.viewDidLoad()
         makeUI()
         checkAuthorization()
         if isDark ?? false{
             collectionView.backgroundColor = .black
+            view.backgroundColor = .black
+            arrowImageView.tintColor = .white
+            selectManyImageView.tintColor = .white
+            selectManyLabel.textColor = .white
+        }else{
+            arrowImageView.tintColor = .black
+            selectManyImageView.tintColor = .black
+            selectManyLabel.textColor = .black
+        }
+        if let selectMany = selectManyString{
+            selectManyLabel.text = selectMany
         }
         if #available(iOS 13.0, *) {
             if let dark = isDark{
@@ -417,8 +431,8 @@ extension TLPhotosPickerViewController {
         self.indicator.startAnimating()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(titleTap))
         self.titleView.addGestureRecognizer(tapGesture)
-        self.titleLabel.text = self.configure.customLocalizedTitle["Camera Roll"]
-        self.subTitleLabel.text = self.configure.tapHereToChange
+        self.titleLabel.text = self.configure.customLocalizedTitle["Camera Roll"]?.uppercased()
+        self.subTitleLabel?.text = self.configure.tapHereToChange
         self.cancelButton.title = self.configure.cancelTitle
         self.doneButton.title = self.configure.doneTitle
         self.doneButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: UIFont.labelFontSize)], for: .normal)
@@ -429,8 +443,8 @@ extension TLPhotosPickerViewController {
         self.albumPopView.tableView.dataSource = self
         self.popArrowImageView.image = TLBundle.podBundleImage(named: "pop_arrow")
         self.popArrowImageView.tintColor = .systemBlue
-        self.subTitleArrowImageView.image = TLBundle.podBundleImage(named: "arrow")?.withRenderingMode(.alwaysTemplate)
-        self.subTitleArrowImageView.tintColor = .systemBlue
+        self.subTitleArrowImageView?.image = TLBundle.podBundleImage(named: "arrow")?.withRenderingMode(.alwaysTemplate)
+        self.subTitleArrowImageView?.tintColor = .systemBlue
         if #available(iOS 10.0, *), self.usedPrefetch {
             self.collectionView.isPrefetchingEnabled = true
             self.collectionView.prefetchDataSource = self
@@ -454,7 +468,7 @@ extension TLPhotosPickerViewController {
     
     private func updateTitle() {
         guard self.focusedCollection != nil else { return }
-        self.titleLabel.text = self.focusedCollection?.title
+        self.titleLabel.text = self.focusedCollection?.title.uppercased()
         updatePresentLimitedLibraryButton()
     }
     
@@ -608,7 +622,7 @@ extension TLPhotosPickerViewController: TLPhotoLibraryDelegate {
         self.collections = collections
         self.focusFirstCollection()
         let isEmpty = self.collections.count == 0
-        self.subTitleStackView.isHidden = isEmpty
+        self.subTitleStackView?.isHidden = isEmpty
         self.emptyView.isHidden = !isEmpty
         self.emptyImageView.isHidden = self.emptyImageView.image == nil
         self.indicator.stopAnimating()
@@ -1192,8 +1206,8 @@ extension TLPhotosPickerViewController: UITableViewDelegate, UITableViewDataSour
     open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TLCollectionTableViewCell", for: indexPath) as! TLCollectionTableViewCell
         let collection = self.collections[indexPath.row]
-        cell.titleLabel.text = collection.title
-        cell.subTitleLabel.text = "\(collection.fetchResult?.count ?? 0)"
+        cell.titleLabel.text = collection.title.uppercased()
+        cell.subTitleLabel?.text = "\(collection.fetchResult?.count ?? 0)"
         if let phAsset = collection.getAsset(at: collection.useCameraButton ? 1 : 0) {
             let scale = UIScreen.main.scale
             let size = CGSize(width: 80*scale, height: 80*scale)

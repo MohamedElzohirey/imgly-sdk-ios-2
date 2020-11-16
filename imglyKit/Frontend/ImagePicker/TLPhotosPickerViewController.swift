@@ -342,7 +342,7 @@ open class TLPhotosPickerViewController: UIViewController {
             if hasTopNotch{
                 self.navigationBarTopConstraint.constant = -15
             }else{
-                self.navigationBarTopConstraint.constant = 20
+                self.navigationBarTopConstraint.constant = 0
             }
         } else if self.navigationBarTopConstraint.constant == 0 {
             self.navigationBarTopConstraint.constant = 20

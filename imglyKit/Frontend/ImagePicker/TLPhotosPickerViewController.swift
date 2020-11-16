@@ -75,7 +75,7 @@ public struct TLPhotosPickerConfigure {
     public var muteAudio = true
     public var preventAutomaticLimitedAccessAlert = true
     public var mediaType: PHAssetMediaType? = nil
-    public var numberOfColumn = 2
+    public var numberOfColumn = 3
     public var singleSelectedMode = false
     public var maxSelectedAssets: Int? = nil
     public var fetchOption: PHFetchOptions? = nil
@@ -340,7 +340,7 @@ open class TLPhotosPickerViewController: UIViewController {
         }
         if #available(iOS 11.0, *) {
             if hasTopNotch{
-                self.navigationBarTopConstraint.constant = -15
+                self.navigationBarTopConstraint.constant = -20
             }else{
                 self.navigationBarTopConstraint.constant = 0
             }

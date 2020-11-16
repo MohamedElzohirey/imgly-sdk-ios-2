@@ -8,11 +8,31 @@
 
 import UIKit
 import imglyKit
+import Photos
 
 class ViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 14.0, *) {
+            PHPhotoLibrary.requestAuthorization(for:  .readWrite) { [weak self] status in
+                if status == .authorized || status == .limited{
+                    DispatchQueue.main.async {
+                        self?.add()
+                    }
+                }
+            }
+        } else {
+            PHPhotoLibrary.requestAuthorization { [weak self] status in
+                DispatchQueue.main.async {
+                    self?.add()
+                }
+            }
+        }
+        // Do any additional setup after loading the view.
+        //navigationController?.pushViewController(cameraViewController, animated: true)
+    }
+    func add(){
         let camera: TLCameraRollView = TLCameraRollView.fromNib()
         var center = view.center
         center.y = center.y - 200
@@ -20,8 +40,6 @@ class ViewController: UIViewController {
         camera.delegate = self
         camera.isDark = false
         view.addSubview(camera)
-        // Do any additional setup after loading the view.
-        //navigationController?.pushViewController(cameraViewController, animated: true)
     }
     let cameraViewController = IMGLYCameraViewController(recordingModes: [.photo, .video])
     
@@ -40,7 +58,7 @@ class ViewController: UIViewController {
         images = addStickers()
         IMGStickersList.stickers = images
         cameraViewController.maximumVideoLength = 15
-        cameraViewController.isDark = true
+        cameraViewController.isDark = false
         cameraViewController.hasTopNotch = true
         //cameraViewController.selectManyString = "اختيار متعدد"
         cameraViewController.showStickers = true

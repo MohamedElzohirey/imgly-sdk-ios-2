@@ -995,9 +995,12 @@ open class IMGLYCameraController: NSObject {
             if let runtimeErrorHandlingObserver = self.runtimeErrorHandlingObserver {
                 NotificationCenter.default.removeObserver(runtimeErrorHandlingObserver)
             }
-            
+            #if targetEnvironment(simulator)
+                print("simulator")
+            #else
             self.removeObserver(self, forKeyPath: "sessionRunningAndDeviceAuthorized", context: &SessionRunningAndDeviceAuthorizedContext)
             self.removeObserver(self, forKeyPath: "stillImageOutput.capturingStillImage", context: &CapturingStillImageContext)
+            #endif
             completion?()
         }
     }

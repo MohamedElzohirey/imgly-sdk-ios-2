@@ -41,6 +41,7 @@ class ViewController: UIViewController {
         IMGStickersList.stickers = images
         cameraViewController.maximumVideoLength = 15
         cameraViewController.isDark = true
+        cameraViewController.hasTopNotch = true
         //cameraViewController.selectManyString = "اختيار متعدد"
         cameraViewController.showStickers = true
         cameraViewController.hasTextComment = true

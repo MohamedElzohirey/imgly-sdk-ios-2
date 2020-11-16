@@ -766,6 +766,7 @@ var selectedAssets:[TLPHAsset]=[]
     @objc open func showCameraRoll(_ sender: UIButton?) {
         let viewController = TLPhotosPickerViewController()
         viewController.isDark = isDark
+        viewController.hasTopNotch = hasTopNotch
         viewController.selectManyString = selectManyString
         viewController.modalPresentationStyle = .fullScreen
         viewController.delegate = self

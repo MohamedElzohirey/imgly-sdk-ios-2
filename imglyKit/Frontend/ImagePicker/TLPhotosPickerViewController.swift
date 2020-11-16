@@ -75,7 +75,7 @@ public struct TLPhotosPickerConfigure {
     public var muteAudio = true
     public var preventAutomaticLimitedAccessAlert = true
     public var mediaType: PHAssetMediaType? = nil
-    public var numberOfColumn = 3
+    public var numberOfColumn = 2
     public var singleSelectedMode = false
     public var maxSelectedAssets: Int? = nil
     public var fetchOption: PHFetchOptions? = nil
@@ -302,6 +302,7 @@ open class TLPhotosPickerViewController: UIViewController {
         }
     }
     open var isDark:Bool?
+    public var hasTopNotch: Bool = false
     open var selectManyString:String?
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -338,6 +339,11 @@ open class TLPhotosPickerViewController: UIViewController {
             initItemSize()
         }
         if #available(iOS 11.0, *) {
+            if hasTopNotch{
+                self.navigationBarTopConstraint.constant = -15
+            }else{
+                self.navigationBarTopConstraint.constant = 20
+            }
         } else if self.navigationBarTopConstraint.constant == 0 {
             self.navigationBarTopConstraint.constant = 20
         }
@@ -412,7 +418,7 @@ extension TLPhotosPickerViewController {
             return
         }
         let count = CGFloat(self.configure.numberOfColumn)
-        let width = (self.view.frame.size.width-(5*(count-1)))/count
+        let width = (self.collectionView.frame.size.width-(5*(count-1)))/count
         self.thumbnailSize = CGSize(width: width, height: width*1.7)
         layout.itemSize = self.thumbnailSize
         self.collectionView.collectionViewLayout = layout

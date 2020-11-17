@@ -10,7 +10,7 @@ import UIKit
 import  Photos
 import PhotosUI
  public protocol TLCameraRollViewDelegate: class {
-    func selectImage(image: UIImage?, isRealImage:Bool)
+    func selectImage(image: UIImage?, isRealImage:Bool, asset: PHAsset?)
 }
 open class TLCameraRollView: UIView {
     open var cameraImage:UIImage? = TLBundle.podBundleImage(named: "camera")
@@ -77,9 +77,10 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
     
     //Delegate
     open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let cell = collectionView.cellForItem(at: indexPath) as? TLPhotoCollectionViewCRollCell{
+        if let cell = collectionView.cellForItem(at: indexPath) as?
+            TLPhotoCollectionViewCRollCell{
             let real:Bool = !(indexPath.section == 0 && indexPath.row == 0)
-            self.delegate?.selectImage(image: cell.imageView?.image, isRealImage: real)
+            self.delegate?.selectImage(image: cell.imageView?.image, isRealImage: real, asset: cell.asset)
         }
     }
     
@@ -144,6 +145,8 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
                             cell?.imageView?.image = image
                             cell?.update(with: phAsset)
                             cell?.indicator?.stopAnimating()
+                        cell?.durationView?.isHidden = asset.type != .video
+                        cell?.duration = asset.type == .video ? phAsset.duration : nil
                     }
                 }
             }else {
@@ -154,6 +157,8 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
                             cell?.imageView?.image = image
                             cell?.update(with: phAsset)
                             cell?.indicator?.stopAnimating()
+                            cell?.durationView?.isHidden = asset.type != .video
+                            cell?.duration = asset.type == .video ? phAsset.duration : nil
                         }
                     })
                 }

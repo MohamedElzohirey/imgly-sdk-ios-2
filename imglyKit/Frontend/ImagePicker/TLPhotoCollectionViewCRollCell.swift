@@ -35,7 +35,16 @@ open class TLPhotoCollectionViewCRollCell: UICollectionViewCell {
         }
     }
     
-    open internal(set) var asset: PHAsset?
+    open internal(set) var asset: PHAsset?{
+        didSet{
+            guard let asset = asset else
+            {return}
+            if asset.mediaType == .video{
+                self.durationView?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
+                    //self.configure.selectedColor : //UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
+            }
+        }
+    }
     
     @objc open var isCameraCell = false
     
@@ -142,6 +151,9 @@ open class TLPhotoCollectionViewCRollCell: UICollectionViewCell {
         self.selectedView?.isHidden = true
         self.selectedView?.layer.borderWidth = 10
         self.selectedView?.layer.cornerRadius = 15
+        //self.durationView?.layer.cornerRadius = 15
+        self.durationView?.roundBottomCorners(cornerRadius: 15.0)
+        //layer.cornerRadius = 15
         self.orderBgView?.layer.cornerRadius = 2
         self.videoIconImageView?.image = self.configure.videoIcon
         if #available(iOS 11.0, *) {
@@ -151,7 +163,10 @@ open class TLPhotoCollectionViewCRollCell: UICollectionViewCell {
             self.videoIconImageView?.accessibilityIgnoresInvertColors = true
         }
     }
-    
+    open override func layoutSubviews() {
+          super.layoutSubviews()
+        self.durationView?.roundBottomCorners(cornerRadius: 15.0)
+    }
     override open func prepareForReuse() {
         super.prepareForReuse()
         stopPlay()
@@ -159,5 +174,16 @@ open class TLPhotoCollectionViewCRollCell: UICollectionViewCell {
         self.durationView?.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6)
         self.selectedHeight?.constant = 10
         self.selectedAsset = false
+    }
+}
+
+extension UIView{
+    func roundBottomCorners(cornerRadius: Double) {
+        let path = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: [.bottomLeft,.bottomRight], cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = self.bounds
+        maskLayer.path = path.cgPath
+        self.layer.mask = maskLayer
+        //self.clipsToBounds = true
     }
 }

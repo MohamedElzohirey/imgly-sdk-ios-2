@@ -118,7 +118,7 @@ class ViewController: UIViewController {
     }
 }
 extension ViewController: TLCameraRollViewDelegate{
-    func selectImage(image: UIImage?, isRealImage: Bool) {
+    func selectImage(image: UIImage?, isRealImage: Bool, asset: PHAsset?) {
         if isRealImage{
             imageView.image = image
         }

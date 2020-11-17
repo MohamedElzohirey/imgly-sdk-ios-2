@@ -304,8 +304,38 @@ open class TLPhotosPickerViewController: UIViewController {
     open var isDark:Bool?
     public var hasTopNotch: Bool = false
     open var selectManyString:String?
+    open var selectManyVideoString:String?
+    func toggle(){
+        if configure.mediaType == .image{
+            configure.allowedVideo = true
+            configure.allowedPhotograph = false
+            configure.allowedLivePhotos = false
+            configure.mediaType = .video
+            configure.maxSelectedAssets = 1
+            if let selectMany = selectManyString{
+                selectManyLabel.text = selectMany
+            }
+        }else{
+            configure.allowedVideo = false
+            configure.allowedPhotograph = true
+            configure.allowedLivePhotos = true
+            configure.mediaType = .image
+            configure.maxSelectedAssets = 20
+            if let selectMany = selectManyVideoString{
+                selectManyLabel.text = selectMany
+            }
+        }
+        viewDidLoad()
+        self.tableView(self.albumPopView.tableView, didSelectRowAt: IndexPath(item: 0, section: 0))
+    }
+    @objc func toggleTap(){
+        toggle()
+    }
     override open func viewDidLoad() {
         super.viewDidLoad()
+        let tapGestureToggle = UITapGestureRecognizer(target: self, action: #selector(toggleTap))
+        self.selectManyImageView.addGestureRecognizer(tapGestureToggle)
+        selectManyImageView.isUserInteractionEnabled = true
         makeUI()
         checkAuthorization()
         if isDark ?? false{
@@ -319,9 +349,7 @@ open class TLPhotosPickerViewController: UIViewController {
             selectManyImageView.tintColor = .black
             selectManyLabel.textColor = .black
         }
-        if let selectMany = selectManyString{
-            selectManyLabel.text = selectMany
-        }
+      
         if #available(iOS 13.0, *) {
             if let dark = isDark{
                 if dark{
@@ -353,6 +381,15 @@ open class TLPhotosPickerViewController: UIViewController {
         super.viewWillAppear(animated)
         if self.photoLibrary.delegate == nil {
             checkAuthorization()
+        }
+        if configure.mediaType == .image{
+            if let selectMany = selectManyVideoString{
+                selectManyLabel.text = selectMany
+            }
+        }else{
+            if let selectMany = selectManyString{
+                selectManyLabel.text = selectMany
+            }
         }
     }
     

@@ -60,7 +60,8 @@ class ViewController: UIViewController {
         cameraViewController.maximumVideoLength = 15
         cameraViewController.isDark = false
         cameraViewController.hasTopNotch = true
-        //cameraViewController.selectManyString = "اختيار متعدد"
+        cameraViewController.selectManyString = "slect images"
+        cameraViewController.selectManyVideoString = "slect video"
         cameraViewController.showStickers = true
         cameraViewController.hasTextComment = true
         cameraViewController.placeholder = "Tesss"

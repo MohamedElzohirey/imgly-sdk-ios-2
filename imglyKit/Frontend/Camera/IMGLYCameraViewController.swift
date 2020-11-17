@@ -62,6 +62,8 @@ open class IMGLYCameraViewController: UIViewController {
     open var text = ""
     open var isDark:Bool?
     open var selectManyString:String?
+    open var selectManyVideoString:String?
+
     open var showStickers = false
     open fileprivate(set) lazy var backgroundContainerView: UIView = {
         let view = UIView()
@@ -768,6 +770,7 @@ var selectedAssets:[TLPHAsset]=[]
         viewController.isDark = isDark
         viewController.hasTopNotch = hasTopNotch
         viewController.selectManyString = selectManyString
+        viewController.selectManyVideoString = selectManyVideoString
         viewController.modalPresentationStyle = .fullScreen
         viewController.delegate = self
         var configure = TLPhotosPickerConfigure()

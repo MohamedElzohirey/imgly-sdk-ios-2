@@ -306,6 +306,7 @@ open class TLPhotosPickerViewController: UIViewController {
     open var selectManyString:String?
     open var selectManyVideoString:String?
     func toggle(){
+        self.selectedAssets.removeAll()
         if configure.mediaType == .image{
             configure.allowedVideo = true
             configure.allowedPhotograph = false

@@ -40,6 +40,12 @@ class ViewController: UIViewController {
         camera.delegate = self
         camera.isDark = false
         view.addSubview(camera)
+        NSLayoutConstraint.activate([
+            camera.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            camera.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            camera.topAnchor.constraint(equalTo: view.topAnchor),
+            camera.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
     }
     let cameraViewController = IMGLYCameraViewController(recordingModes: [.photo, .video])
     

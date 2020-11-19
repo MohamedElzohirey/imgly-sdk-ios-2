@@ -52,7 +52,7 @@ open class TLCameraRollView: UIView {
         guard let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
             return
         }
-        let width:CGFloat = 110.0
+        let width:CGFloat = 90.0
         self.thumbnailSize = CGSize(width: width, height: width)
         layout.itemSize = self.thumbnailSize
         layout.minimumLineSpacing = 2

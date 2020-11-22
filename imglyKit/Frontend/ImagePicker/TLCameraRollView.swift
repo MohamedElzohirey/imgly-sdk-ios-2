@@ -80,7 +80,13 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
         if let cell = collectionView.cellForItem(at: indexPath) as?
             TLPhotoCollectionViewCRollCell{
             let real:Bool = !(indexPath.section == 0 && indexPath.row == 0)
-            self.delegate?.selectImage(image: cell.imageView?.image, isRealImage: real, asset: cell.asset)
+            if !real{
+                self.delegate?.selectImage(image: cell.imageView?.image, isRealImage: real, asset: cell.asset)
+                return
+            }
+            guard let collection = self.focusedCollection else {return }
+            guard let asset = collection.getTLAsset(at: indexPath) else { return}
+            self.delegate?.selectImage(image: asset.fullResolutionImage, isRealImage: real, asset: cell.asset)
         }
     }
     

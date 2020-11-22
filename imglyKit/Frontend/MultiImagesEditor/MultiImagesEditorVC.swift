@@ -16,7 +16,7 @@ open class MultiImagesEditorVC: UIViewController {
     open var showStickers = false
     var postButton:UIButton = UIButton(type: .system)
     func setUpButton(){
-        postButton.titleLabel?.font = UIFont.systemFont(ofSize: 18.0, weight: .bold)
+        postButton.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .bold)
         postButton.setTitle("Post", for: .normal)
         postButton.sizeToFit()
         postButton.addTarget(self, action: #selector(addPost), for: .touchUpInside)

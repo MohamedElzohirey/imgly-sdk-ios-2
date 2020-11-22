@@ -882,9 +882,9 @@ var selectedAssets:[TLPHAsset]=[]
         dismiss(animated: false, completion: nil)
     }
     fileprivate func editorCompletionBlock(_ result: IMGLYEditorResult, image: UIImage?, postDirect: Bool, postText: String?) {
-        if let image = image, result == .done {
+        /*if let image = image, result == .done {
             UIImageWriteToSavedPhotosAlbum(image, self, #selector(IMGLYCameraViewController.image(_:didFinishSavingWithError:contextInfo:)), nil)
-        }
+        }*/
         editorCompletionBlockDone?(result,image, postDirect, postText)
         dismiss(animated: false, completion: nil)
     }

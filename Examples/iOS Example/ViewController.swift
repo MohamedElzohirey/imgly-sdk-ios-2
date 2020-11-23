@@ -32,8 +32,9 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         //navigationController?.pushViewController(cameraViewController, animated: true)
     }
+    let camera: TLCameraRollView = TLCameraRollView.fromNib()
     func add(){
-        let camera: TLCameraRollView = TLCameraRollView.fromNib()
+        camera.refresh()
         var center = view.center
         center.y = center.y - 200
         camera.center = center

@@ -35,10 +35,13 @@ open class TLCameraRollView: UIView {
     @IBOutlet open var collectionView: UICollectionView!
     open override func awakeFromNib() {
         super.awakeFromNib()
-        loadPhotos(limitMode: false)
+        //loadPhotos(limitMode: false)
         registerNib(nibName: "TLPhotoCollectionViewCRollCell", bundle: TLBundle.bundle())
         self.customDataSouces?.registerSupplementView(collectionView: self.collectionView)
         initItemSize()
+    }
+    open func refresh(){
+        loadPhotos(limitMode: false)
     }
     private func loadPhotos(limitMode: Bool) {
         self.photoLibrary.limitMode = limitMode

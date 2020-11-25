@@ -84,6 +84,20 @@ class TLPhotoLibrary {
     }
     
     @discardableResult
+    class func cloudVideoDownload(asset: PHAsset, size: CGSize = PHImageManagerMaximumSize, progressBlock: @escaping (Double) -> Void, completionBlock:@escaping (AVAsset?)-> Void ) -> PHImageRequestID {
+        let options = PHVideoRequestOptions()
+        options.isNetworkAccessAllowed = true
+        options.deliveryMode = .fastFormat
+        options.version = .current
+        options.progressHandler = { (progress,error,stop,info) in
+            progressBlock(progress)
+        }
+        let requestID = PHCachingImageManager().requestAVAsset(forVideo: asset, options: options) { (avAsset, avAudio, info) in
+            completionBlock(avAsset)
+        }
+        return requestID
+    }
+    @discardableResult
     class func cloudImageDownload(asset: PHAsset, size: CGSize = PHImageManagerMaximumSize, progressBlock: @escaping (Double) -> Void, completionBlock:@escaping (UIImage?)-> Void ) -> PHImageRequestID {
         let options = PHImageRequestOptions()
         options.isSynchronous = false

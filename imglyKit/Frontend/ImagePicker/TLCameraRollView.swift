@@ -88,13 +88,29 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
                 return
             }
             guard let collection = self.focusedCollection else {
-                self.delegate?.selectImage(image: cell.imageView?.image, isRealImage: real, asset: cell.asset)
                 return
             }
-            guard let asset = collection.getTLAsset(at: indexPath) else {                 self.delegate?.selectImage(image: cell.imageView?.image, isRealImage: real, asset: cell.asset)
+            guard let asset = collection.getTLAsset(at: indexPath) else {
                 return
             }
-            self.delegate?.selectImage(image: asset.fullResolutionImage, isRealImage: real, asset: cell.asset)
+            let resources = PHAssetResource.assetResources(for: asset.phAsset!)
+            if resources.first?.value(forKey: "locallyAvailable") as! Bool == true{
+                if asset.type == .video{
+                    asset.cloudVideoDownload { (progress) in
+                    } completionBlock: { (avasset) in
+                        //avasset
+                        self.delegate?.selectImage(image: asset.fullResolutionImage, isRealImage: real, asset: asset.phAsset)
+                    }
+                    return
+                }else{
+                    asset.cloudImageDownload { (progress) in
+                    } completionBlock: { (image) in
+                        self.delegate?.selectImage(image: asset.fullResolutionImage, isRealImage: real, asset: asset.phAsset)
+                    }
+                }
+                return
+            }
+            self.delegate?.selectImage(image: asset.fullResolutionImage, isRealImage: real, asset: asset.phAsset)
         }
     }
     

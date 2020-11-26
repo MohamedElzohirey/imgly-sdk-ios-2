@@ -208,6 +208,9 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
         }else{
             cell.cloudImageView?.isHidden = true
         }
+        if  indexPath.section == 0 && indexPath.row == 0{
+            cell.cloudImageView?.isHidden = true
+        }
         return cell
     }
     

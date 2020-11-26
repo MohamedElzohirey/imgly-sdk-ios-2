@@ -12,6 +12,7 @@ import Photos
 
 class ViewController: UIViewController {
     @IBOutlet var imageView: UIImageView!
+    @IBOutlet var containerView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 14.0, *) {
@@ -38,14 +39,15 @@ class ViewController: UIViewController {
         var center = view.center
         center.y = center.y - 200
         camera.center = center
+        camera.cloudTintColor = .yellow
         camera.delegate = self
         camera.isDark = false
-        view.addSubview(camera)
+        containerView.addSubview(camera)
         NSLayoutConstraint.activate([
-            camera.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            camera.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            camera.topAnchor.constraint(equalTo: view.topAnchor),
-            camera.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            camera.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            camera.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            camera.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0),
+            camera.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
             ])
     }
     let cameraViewController = IMGLYCameraViewController(recordingModes: [.photo, .video])
@@ -126,7 +128,11 @@ class ViewController: UIViewController {
     }
 }
 extension ViewController: TLCameraRollViewDelegate{
-    func selectImage(image: UIImage?, isRealImage: Bool, asset: PHAsset?) {
+    func startDownloadingFromCloud() {
+    }
+    
+  
+    func selectImage(image: UIImage?, isRealImage: Bool, asset: PHAsset?, video: AVAsset?) {
         if isRealImage{
             imageView.image = image
         }

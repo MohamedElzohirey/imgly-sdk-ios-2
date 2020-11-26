@@ -95,17 +95,26 @@
                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="DZc-ag-e55">
                         <rect key="frame" x="40" y="40" width="20" height="20"/>
                     </activityIndicatorView>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud" translatesAutoresizingMaskIntoConstraints="NO" id="DGr-Os-ZME">
+                        <rect key="frame" x="5" y="5" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="mej-DS-kMX"/>
+                            <constraint firstAttribute="width" constant="20" id="wHM-1w-hbh"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="vfk-Ao-TKR" secondAttribute="bottom" id="2gw-cO-5bN"/>
                 <constraint firstAttribute="bottom" secondItem="apl-2Q-Hz7" secondAttribute="bottom" id="3zu-V3-EAd"/>
+                <constraint firstItem="DGr-Os-ZME" firstAttribute="leading" secondItem="IF3-4e-v0j" secondAttribute="leading" constant="5" id="437-b0-RO6"/>
                 <constraint firstAttribute="trailing" secondItem="0cR-fZ-1bW" secondAttribute="trailing" constant="3" id="9sd-Ea-EBO"/>
                 <constraint firstAttribute="trailing" secondItem="vfk-Ao-TKR" secondAttribute="trailing" id="BZ0-ZG-uW5"/>
                 <constraint firstAttribute="bottom" secondItem="TGh-wt-hcR" secondAttribute="bottom" constant="5" id="Ba1-Z6-ypz"/>
                 <constraint firstItem="0cR-fZ-1bW" firstAttribute="leading" secondItem="IF3-4e-v0j" secondAttribute="leading" constant="3" id="DXe-M9-mxX"/>
                 <constraint firstItem="apl-2Q-Hz7" firstAttribute="top" secondItem="IF3-4e-v0j" secondAttribute="top" id="JlA-ya-cf3"/>
                 <constraint firstAttribute="trailing" secondItem="apl-2Q-Hz7" secondAttribute="trailing" id="KZg-oh-B11"/>
+                <constraint firstItem="DGr-Os-ZME" firstAttribute="top" secondItem="IF3-4e-v0j" secondAttribute="top" constant="5" id="L6a-je-KKl"/>
                 <constraint firstAttribute="trailing" secondItem="TGh-wt-hcR" secondAttribute="trailing" constant="5" id="Meo-q5-HyZ"/>
                 <constraint firstItem="vfk-Ao-TKR" firstAttribute="leading" secondItem="IF3-4e-v0j" secondAttribute="leading" id="NOQ-KU-fHD"/>
                 <constraint firstItem="vfk-Ao-TKR" firstAttribute="top" secondItem="IF3-4e-v0j" secondAttribute="top" id="NrV-wc-c3q"/>
@@ -123,6 +132,7 @@
                 <constraint firstItem="aju-ob-KlZ" firstAttribute="centerX" secondItem="0cR-fZ-1bW" secondAttribute="centerX" id="znb-ll-wyJ"/>
             </constraints>
             <connections>
+                <outlet property="cloudImageView" destination="DGr-Os-ZME" id="8A1-bC-USO"/>
                 <outlet property="durationLabel" destination="zNx-FC-5V2" id="5SU-lD-AGm"/>
                 <outlet property="durationView" destination="aju-ob-KlZ" id="hiP-Ze-cbc"/>
                 <outlet property="imageView" destination="0cR-fZ-1bW" id="N3f-v5-K9b"/>
@@ -139,4 +149,7 @@
             <point key="canvasLocation" x="32" y="-10"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="cloud" width="16" height="16"/>
+    </resources>
 </document>

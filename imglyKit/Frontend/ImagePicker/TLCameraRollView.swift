@@ -10,9 +10,11 @@ import UIKit
 import  Photos
 import PhotosUI
  public protocol TLCameraRollViewDelegate: class {
-    func selectImage(image: UIImage?, isRealImage:Bool, asset: PHAsset?)
+    func startDownloadingFromCloud()
+    func selectImage(image: UIImage?, isRealImage:Bool, asset: PHAsset?, video: AVAsset?)
 }
 open class TLCameraRollView: UIView {
+    open var cloudTintColor:UIColor = .black
     open var cameraImage:UIImage? = TLBundle.podBundleImage(named: "camera")
     open var delegate:TLCameraRollViewDelegate?
     open var isDark:Bool = false{
@@ -84,7 +86,7 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
             TLPhotoCollectionViewCRollCell{
             let real:Bool = !(indexPath.section == 0 && indexPath.row == 0)
             if !real{
-                self.delegate?.selectImage(image: cell.imageView?.image, isRealImage: real, asset: cell.asset)
+                self.delegate?.selectImage(image: cell.imageView?.image, isRealImage: real, asset: cell.asset, video: nil)
                 return
             }
             guard let collection = self.focusedCollection else {
@@ -94,23 +96,24 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
                 return
             }
             let resources = PHAssetResource.assetResources(for: asset.phAsset!)
-            if resources.first?.value(forKey: "locallyAvailable") as! Bool == true{
+            if resources.first?.value(forKey: "locallyAvailable") as! Bool == false{
+                self.delegate?.startDownloadingFromCloud()
                 if asset.type == .video{
                     asset.cloudVideoDownload { (progress) in
                     } completionBlock: { (avasset) in
                         //avasset
-                        self.delegate?.selectImage(image: asset.fullResolutionImage, isRealImage: real, asset: asset.phAsset)
+                        self.delegate?.selectImage(image: asset.fullResolutionImage, isRealImage: real, asset: asset.phAsset, video: avasset)
                     }
                     return
                 }else{
                     asset.cloudImageDownload { (progress) in
                     } completionBlock: { (image) in
-                        self.delegate?.selectImage(image: asset.fullResolutionImage, isRealImage: real, asset: asset.phAsset)
+                        self.delegate?.selectImage(image: asset.fullResolutionImage, isRealImage: real, asset: asset.phAsset, video: nil)
                     }
                 }
                 return
             }
-            self.delegate?.selectImage(image: asset.fullResolutionImage, isRealImage: real, asset: asset.phAsset)
+            self.delegate?.selectImage(image: asset.fullResolutionImage, isRealImage: real, asset: asset.phAsset, video: nil)
         }
     }
     
@@ -198,6 +201,13 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
         UIView.transition(with: cell, duration: 0.1, options: .curveEaseIn, animations: {
             cell.alpha = 1
         }, completion: nil)
+        let resources = PHAssetResource.assetResources(for: asset.phAsset!)
+        cell.cloudImageView?.tintColor = cloudTintColor
+        if resources.first?.value(forKey: "locallyAvailable") as! Bool == false{
+            cell.cloudImageView?.isHidden = false
+        }else{
+            cell.cloudImageView?.isHidden = true
+        }
         return cell
     }
     

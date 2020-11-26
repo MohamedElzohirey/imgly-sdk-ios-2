@@ -12,6 +12,7 @@ import PhotosUI
 
 open class TLPhotoCollectionViewCRollCell: UICollectionViewCell {
     private var observer: NSObjectProtocol?
+    @IBOutlet open var cloudImageView: UIImageView?
     @IBOutlet open var imageView: UIImageView?
     @IBOutlet open var playerView: TLPlayerView?
     @IBOutlet open var livePhotoView: PHLivePhotoView?

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController" customModule="iOS_Example" customModuleProvider="target">
             <connections>
+                <outlet property="containerView" destination="Hn2-Wo-3K4" id="tZa-9B-Ps3"/>
                 <outlet property="imageView" destination="Mad-gf-QuJ" id="Q3L-Wn-V0s"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -20,6 +21,13 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hn2-Wo-3K4">
+                    <rect key="frame" x="0.0" y="734" width="414" height="128"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="128" id="f31-LS-PfI"/>
+                    </constraints>
+                </view>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mad-gf-QuJ">
                     <rect key="frame" x="87" y="389" width="240" height="128"/>
                     <constraints>
@@ -38,8 +46,11 @@
             <color key="backgroundColor" systemColor="systemPinkColor"/>
             <constraints>
                 <constraint firstItem="bxW-4l-9vD" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="0ft-X8-Osl"/>
+                <constraint firstItem="Hn2-Wo-3K4" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="2w2-50-mcV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Hn2-Wo-3K4" secondAttribute="bottom" id="9YC-lT-Qhj"/>
                 <constraint firstItem="bxW-4l-9vD" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Fbe-HI-cOS"/>
                 <constraint firstItem="Mad-gf-QuJ" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="NA1-Mr-okD"/>
+                <constraint firstItem="Hn2-Wo-3K4" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="UhX-Lr-bQc"/>
                 <constraint firstItem="Mad-gf-QuJ" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.57971" id="gSE-Eh-veh"/>
                 <constraint firstItem="Mad-gf-QuJ" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="nLS-WC-9Zn"/>
             </constraints>
@@ -47,6 +58,9 @@
         </view>
     </objects>
     <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemPinkColor">
             <color red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

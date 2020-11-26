@@ -139,6 +139,9 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
             if  indexPath.section == 0 && indexPath.row == 0{}else{
                 cell.indicator?.startAnimating()
             }
+            if  indexPath.section == 0 && indexPath.row == 0{
+                cell.cloudImageView?.isHidden = true
+            }
             return cell
         }
         let nibName = self.configure.nibSet?.nibName ?? "TLPhotoCollectionViewCRollCell"
@@ -151,6 +154,9 @@ extension TLCameraRollView: UICollectionViewDelegate,UICollectionViewDataSource,
                 cell = makeCell(nibName: nibName)
             }else{
                 cell.imageView?.image = self.cameraImage
+            }
+            if  indexPath.section == 0 && indexPath.row == 0{
+                cell.cloudImageView?.isHidden = true
             }
             return cell
         }

@@ -645,6 +645,10 @@ var selectedAssets:[TLPHAsset]=[]
         hideSliderTimer = Timer.scheduledTimer(timeInterval: ShowFilterIntensitySliderInterval, target: self, selector: #selector(IMGLYCameraViewController.hideFilterIntensitySlider(_:)), userInfo: nil, repeats: false)
     }
     public typealias IMGLYVideoCompletionBlock = (Bool, URL?) -> Void
+    public typealias StartDownloadBlock = () -> Void
+    public typealias EndDownloadBlock = () -> Void
+    public var startDownloadBlock: StartDownloadBlock?
+    public var endDownloadBlock: EndDownloadBlock?
     public var videoCompletionBlock: IMGLYVideoCompletionBlock?
     public var editorCompletionBlockDone: IMGLYEditorCompletionBlock?
     public var editorCompletionAllImagesBlockDone: IMGLYEditorAllImagesCompletionBlock?
@@ -1205,38 +1209,76 @@ extension IMGLYCameraViewController: TLPhotosPickerViewControllerDelegate{
             return
         }
         var images:[UIImage] = []
-          for asset in selectedAssets{
+        var counts = selectedAssets.count
+        for asset in selectedAssets{
             if asset.type == .video {
                 asset.exportVideoFile { (url, str) in
-                    self.videoCompletionBlock?(true,url)
+                    //download
+                    let resources = PHAssetResource.assetResources(for: asset.phAsset!)
+                    if resources.first?.value(forKey: "locallyAvailable") as! Bool == false{
+                        self.startDownloadBlock?()
+                        asset.cloudVideoDownload { (progress) in
+                        } completionBlock: { (avasset) in
+                            if let avassetURL = avasset as? AVURLAsset{
+                                self.endDownloadBlock?()
+                                self.videoCompletionBlock?(true,avassetURL.url)
+                            }
+                        }
+                    }else{
+                        self.videoCompletionBlock?(true,url)
+                    }
                 }
                 return
             }
-              if let image = asset.fullResolutionImage{
-                  images.append(image)
-              }
-          }
-          let editorViewController = MultiImagesEditorVC()
-            editorViewController.isDark = isDark
-            editorViewController.showStickers = showStickers
-            editorViewController.hasTextComment = hasTextComment
-            editorViewController.placeholder = placeholder
-            editorViewController.text = text
-          editorViewController.modalPresentationStyle = .fullScreen
-          editorViewController.highResolutionImage = images.first
-          editorViewController.images = images
-          if let cameraController = cameraController {
-              editorViewController.initialFilterType = cameraController.effectFilter.filterType
-              editorViewController.initialFilterIntensity = cameraController.effectFilter.inputIntensity
-          }
-          editorViewController.completionBlock = editorCompletionBlock
-          editorViewController.completionAllImagesBlock = editorAllImagesCompletionBlock
-          let navigationController = IMGLYNavigationController(rootViewController: editorViewController)
-          navigationController.navigationBar.barStyle = .black
-          navigationController.navigationBar.isTranslucent = false
-          navigationController.navigationBar.titleTextAttributes = [ NSAttributedString.Key.foregroundColor : UIColor.white ]
-        navigationController.modalPresentationStyle = .fullScreen
-          self.present(navigationController, animated: true, completion: nil)
+            let resources = PHAssetResource.assetResources(for: asset.phAsset!)
+            if resources.first?.value(forKey: "locallyAvailable") as! Bool == false{
+                self.startDownloadBlock?()
+                asset.cloudImageDownload { (progress) in
+                } completionBlock: { (image) in
+                    if let img = image{
+                        images.append(img)
+                        counts = counts - 1
+                        if counts == 0{
+                            self.endDownloadBlock?()
+                            self.openEditorVC(images:images)
+                        }
+                    }
+                }
+            }else{
+                if let image = asset.fullResolutionImage{
+                    images.append(image)
+                    counts = counts - 1
+                }
+            }
+            
+        }
+        if counts == 0{
+            self.endDownloadBlock?()
+            openEditorVC(images:images)
+        }
+    }
+    func openEditorVC(images: [UIImage]){
+        let editorViewController = MultiImagesEditorVC()
+          editorViewController.isDark = isDark
+          editorViewController.showStickers = showStickers
+          editorViewController.hasTextComment = hasTextComment
+          editorViewController.placeholder = placeholder
+          editorViewController.text = text
+        editorViewController.modalPresentationStyle = .fullScreen
+        editorViewController.highResolutionImage = images.first
+        editorViewController.images = images
+        if let cameraController = cameraController {
+            editorViewController.initialFilterType = cameraController.effectFilter.filterType
+            editorViewController.initialFilterIntensity = cameraController.effectFilter.inputIntensity
+        }
+        editorViewController.completionBlock = editorCompletionBlock
+        editorViewController.completionAllImagesBlock = editorAllImagesCompletionBlock
+        let navigationController = IMGLYNavigationController(rootViewController: editorViewController)
+        navigationController.navigationBar.barStyle = .black
+        navigationController.navigationBar.isTranslucent = false
+        navigationController.navigationBar.titleTextAttributes = [ NSAttributedString.Key.foregroundColor : UIColor.white ]
+      navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: true, completion: nil)
     }
     public func dismissComplete() {
         DispatchQueue.main.async {

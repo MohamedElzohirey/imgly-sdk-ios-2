@@ -342,7 +342,7 @@ open class TLPhotosPickerViewController: UIViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         if ((Locale.preferredLanguages.first ?? "").contains("ar")) && firstTime{
-            spaceConstraint?.constant =  0//(130 - view.frame.size.width)
+            spaceConstraint?.constant =  200//(130 - view.frame.size.width)
             firstTime = false
         }
         let tapGestureToggle = UITapGestureRecognizer(target: self, action: #selector(toggleTap))

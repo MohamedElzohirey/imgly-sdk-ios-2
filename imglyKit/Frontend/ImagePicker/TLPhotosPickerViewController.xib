@@ -27,6 +27,7 @@
                 <outlet property="popArrowImageView" destination="5zn-je-qLx" id="6k9-cH-vcU"/>
                 <outlet property="selectManyImageView" destination="VQO-sh-VpC" id="NuH-N6-sP1"/>
                 <outlet property="selectManyLabel" destination="p9j-8A-meD" id="aNS-vb-R1B"/>
+                <outlet property="spaceConstraint" destination="Bzq-1t-FgE" id="s77-Da-jbo"/>
                 <outlet property="titleLabel" destination="xuG-bc-Oq9" id="2o0-aN-au6"/>
                 <outlet property="titleView" destination="VAz-Py-dsa" id="deY-US-9Jh"/>
                 <outlet property="view" destination="Zyk-dI-msE" id="dxK-gh-unF"/>

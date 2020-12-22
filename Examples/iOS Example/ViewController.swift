@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet var containerView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+
         if #available(iOS 14.0, *) {
             PHPhotoLibrary.requestAuthorization(for:  .readWrite) { [weak self] status in
                 if status == .authorized || status == .limited{

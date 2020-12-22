@@ -54,17 +54,16 @@ open class TLCameraRollView: UIView {
         self.collectionView.register(UINib(nibName: nibName, bundle: bundle), forCellWithReuseIdentifier: nibName)
     }
     private func initItemSize() {
-        guard let layout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
-            return
-        }
-        let width:CGFloat = 90.0
-        self.thumbnailSize = CGSize(width: width, height: width)
-        layout.itemSize = self.thumbnailSize
-        layout.minimumLineSpacing = 2
-        layout.sectionInset = .zero
-        layout.minimumInteritemSpacing = 2
-        self.collectionView.collectionViewLayout = layout
-    }
+           let layout = BothDirectionRTLCollectionViewFlowLayout()
+           let width:CGFloat = 90.0
+           self.thumbnailSize = CGSize(width: width, height: width)
+           layout.itemSize = self.thumbnailSize
+           layout.minimumLineSpacing = 2
+           layout.sectionInset = .zero
+           layout.minimumInteritemSpacing = 2
+           layout.scrollDirection = .horizontal
+           self.collectionView.collectionViewLayout = layout
+       }
     
 }
 extension TLCameraRollView: TLPhotoLibraryDelegate {
@@ -276,5 +275,16 @@ extension TLCameraRollView: UICollectionViewDelegateFlowLayout {
             return self.customDataSouces?.footerReferenceSize() ?? CGSize.zero
         }*/
         return CGSize.zero
+    }
+}
+class BothDirectionRTLCollectionViewFlowLayout: UICollectionViewFlowLayout {
+    var isArabic: Bool {
+       ((Locale.preferredLanguages.first ?? "").contains("ar"))
+    }
+    override var flipsHorizontallyInOppositeLayoutDirection: Bool {
+        return isArabic
+    }
+    override var developmentLayoutDirection: UIUserInterfaceLayoutDirection {
+        return isArabic ? UIUserInterfaceLayoutDirection.rightToLeft : UIUserInterfaceLayoutDirection.leftToRight
     }
 }

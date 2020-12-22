@@ -50,15 +50,20 @@ extension TLPhotosPickerLogDelegate {
     func selectedPhoto(picker: TLPhotosPickerViewController, at: Int) { }
     func selectedAlbum(picker: TLPhotosPickerViewController, collections: [TLAssetsCollection], at: Int) { }
 }
-
+class Language{
+    static var isArabic: Bool {
+           ((Locale.preferredLanguages.first ?? "").contains("ar"))
+        }
+}
 public struct TLPhotosPickerConfigure {
+
     public var customLocalizedTitle: [String: String] = ["Camera Roll": "Camera Roll"]
-    public var tapHereToChange = "Tap here to change"
-    public var cancelTitle = "Cancel"
-    public var doneTitle = "Done"
-    public var emptyMessage = "No albums"
-    public var selectMessage = "Select"
-    public var deselectMessage = "Deselect"
+    public var tapHereToChange = Language.isArabic ? "اضغط للتغيير" : "Tap here to change"
+    public var cancelTitle = Language.isArabic ? "الغاء" : "Cancel"
+    public var doneTitle = Language.isArabic ? "تم" : "Done"
+    public var emptyMessage = Language.isArabic ? "لا يوجد" : "No albums"
+    public var selectMessage =  Language.isArabic ? "اختر" : "Select"
+    public var deselectMessage = Language.isArabic ? "عدم الاختيار" : "Deselect"
     public var emptyImage: UIImage? = nil
     public var usedCameraButton = true
     public var usedPrefetch = false
@@ -129,6 +134,7 @@ public struct Platform {
 
 open class TLPhotosPickerViewController: UIViewController {
     @IBOutlet open var navigationBar: UINavigationBar!
+    @IBOutlet open var spaceConstraint: NSLayoutConstraint?
     @IBOutlet open var titleView: UIView!
     @IBOutlet open var titleLabel: UILabel!
     @IBOutlet open var subTitleStackView: UIStackView?
@@ -332,8 +338,13 @@ open class TLPhotosPickerViewController: UIViewController {
     @objc func toggleTap(){
         toggle()
     }
+    var firstTime = true
     override open func viewDidLoad() {
         super.viewDidLoad()
+        if ((Locale.preferredLanguages.first ?? "").contains("ar")) && firstTime{
+            spaceConstraint?.constant =  0//(130 - view.frame.size.width)
+            firstTime = false
+        }
         let tapGestureToggle = UITapGestureRecognizer(target: self, action: #selector(toggleTap))
         self.selectManyImageView.addGestureRecognizer(tapGestureToggle)
         selectManyImageView.isUserInteractionEnabled = true

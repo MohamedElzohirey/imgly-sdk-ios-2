@@ -61,6 +61,7 @@ public struct TLPhotosPickerConfigure {
     public var tapHereToChange = Language.isArabic ? "اضغط للتغيير" : "Tap here to change"
     public var cancelTitle = Language.isArabic ? "الغاء" : "Cancel"
     public var doneTitle = Language.isArabic ? "تم" : "Done"
+    public var postTitle = Language.isArabic ? "إنشاء" : "Post"
     public var emptyMessage = Language.isArabic ? "لا يوجد" : "No albums"
     public var selectMessage =  Language.isArabic ? "اختر" : "Select"
     public var deselectMessage = Language.isArabic ? "عدم الاختيار" : "Deselect"
@@ -338,13 +339,8 @@ open class TLPhotosPickerViewController: UIViewController {
     @objc func toggleTap(){
         toggle()
     }
-    var firstTime = true
     override open func viewDidLoad() {
         super.viewDidLoad()
-        if ((Locale.preferredLanguages.first ?? "").contains("ar")) && firstTime{
-            spaceConstraint?.constant =  0//(130 - view.frame.size.width)
-            firstTime = false
-        }
         let tapGestureToggle = UITapGestureRecognizer(target: self, action: #selector(toggleTap))
         self.selectManyImageView.addGestureRecognizer(tapGestureToggle)
         selectManyImageView.isUserInteractionEnabled = true

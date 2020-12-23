@@ -17,7 +17,7 @@ open class MultiImagesEditorVC: UIViewController {
     var postButton:UIButton = UIButton(type: .system)
     func setUpButton(){
         postButton.titleLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .bold)
-        postButton.setTitle("Post", for: .normal)
+        postButton.setTitle(TLPhotosPickerConfigure().postTitle, for: .normal)
         postButton.sizeToFit()
         postButton.addTarget(self, action: #selector(addPost), for: .touchUpInside)
     }
@@ -151,7 +151,8 @@ open class MultiImagesEditorVC: UIViewController {
                 (postButton.bottomAnchor.constraint(equalTo: growingTextViewContainer.bottomAnchor)),
                 (postButton.widthAnchor.constraint(equalToConstant: 40.0)),
                 (postButton.heightAnchor.constraint(equalToConstant: 40.0)),
-                (postButton.trailingAnchor.constraint(equalTo: growingTextViewContainer.trailingAnchor, constant: -10.0)),
+                (Language.isArabic ? (postButton.leadingAnchor.constraint(equalTo: growingTextViewContainer.leadingAnchor, constant: 10.0)) :
+                postButton.trailingAnchor.constraint(equalTo: growingTextViewContainer.trailingAnchor, constant: -10.0)),
             ]
             )
         }

@@ -40,12 +40,12 @@ open class IMGLYOrientationCropFilter : CIFilter {
     
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.imgly_displayName = "OrientationCropFilter"
+        self.imgly_displayName = "OrientationCropFilter".localized
     }
     
     override init() {
         super.init()
-        self.imgly_displayName = "OrientationCropFilter"
+        self.imgly_displayName = "OrientationCropFilter".localized
     }
     
     /// Returns a CIImage object that encapsulates the operations configured in the filter. (read-only)

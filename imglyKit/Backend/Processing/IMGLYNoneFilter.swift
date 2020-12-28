@@ -23,7 +23,7 @@ open class IMGLYNoneFilter : IMGLYResponseFilter {
     
     @objc init() {
         super.init(responseName: "None")
-        self.imgly_displayName = "None"
+        self.imgly_displayName = "None".localized
     }
     
     /// Returns a CIImage object that encapsulates the operations configured in the filter. (read-only)

@@ -11,7 +11,7 @@ import Foundation
 open class IMGLYLithoFilter: IMGLYResponseFilter {
     @objc init() {
         super.init(responseName: "Litho")
-        self.imgly_displayName = "Litho"
+        self.imgly_displayName = "Litho".localized
     }
     
     required public init?(coder aDecoder: NSCoder) {

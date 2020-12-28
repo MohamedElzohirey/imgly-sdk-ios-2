@@ -1,0 +1,133 @@
+/* 
+  Localizable.strings
+  imglyKit
+
+  Created by Sascha Schwabbauer on 07/04/15.
+  Copyright (c) 2015 9elements GmbH. All rights reserved.
+*/
+
+// Camera View Controller
+"camera-view-controller.camera-no-permission.title" = "لا يوجد إذن";
+"camera-view-controller.camera-no-permission.message" = "مطلوب إذن لاستخدام الكاميرا ، يرجى تغيير إعدادات الخصوصية.";
+"camera-view-controller.camera-no-permission.settings" = "إعدادات";
+"camera-view-controller.camera-no-permission.cancel" = "إلغاء";
+"camera-view-controller.mode.photo" = "صورة فوتوغرافية";
+"camera-view-controller.mode.video" = "فيديو";
+"camera-view-controller.error-saving-video.title" = "خطأ أثناء حفظ الفيديو";
+"camera-view-controller.error-saving-video.cancel" = "إلغاء";
+
+// Main Editor
+"main-editor.title" = "محرر";
+"main-editor.button.magic" = "سحر";
+"main-editor.button.filter" = "فلتر";
+"main-editor.button.stickers" = "ملصقات";
+"main-editor.button.orientation" = "اتجاه";
+"main-editor.button.focus" = "تركز";
+"main-editor.button.crop" = "اقتصاص";
+"main-editor.button.brightness" = "سطوع";
+"main-editor.button.contrast" = "التباين";
+"main-editor.button.saturation" = "التشبع";
+"main-editor.button.text" = "نص";
+
+// Filter Editor
+"filter-editor.title" = "منقي";
+
+// Stickers Editor
+"stickers-editor.title" = "ملصقات";
+
+// Orientation Editor
+"orientation-editor.title" = "اتجاه";
+"orientation-editor.rotate-left" = "استدر يسارا";
+"orientation-editor.rotate-right" = "استدارة لليمين";
+"orientation-editor.flip-horizontally" = "الوجه الأفقي";
+"orientation-editor.flip-vertically" = "الوجه الرأسي";
+
+// Focus Editor
+"focus-editor.title" = "التركيز";
+"focus-editor.off" = "إيقاف";
+"focus-editor.linear" = "خطي";
+"focus-editor.radial" = "شعاعي";
+
+// Crop Editor
+"crop-editor.title" = "اقتصاص";
+"crop-editor.free" = "مجانا";
+"crop-editor.1-to-1" = "1:1";
+"crop-editor.4-to-3" = "4:3";
+"crop-editor.16-to-9" = "16:9";
+
+// Brightness Editor
+"brightness-editor.title" = "سطوع";
+
+// Contrast Editor
+"contrast-editor.title" = "التباين";
+
+// Saturation Editor
+"saturation-editor.title" = "التشبع";
+
+// Text Editor
+"text-editor.title" = "نص";
+
+// Filters
+"Goblin" = "عفريت";
+"Carb" = "الكربوهيدرات";
+"K1" = "K1";
+"K2" = "K2";
+"K6" = "K6";
+"Dynamic" = "ديناميكي";
+"Keen" = "متحمس";
+"Lenin" = "لينين";
+"Litho" = "ليثو";
+"Lomo 100" = "100 لومو";
+"Lomo" = "Lomo";
+"Lucid" = "نقي";
+"Mellow" = "يانع";
+"Neat" = "أنيق";
+"No Green" = "لا أخضر";
+"Orchid" = "زهرة الأوركيد";
+"Pale" = "باهت";
+"Pitched" = "ضارية";
+"Plate" = "طبق";
+"669" = "669";
+"SX" = "SX";
+"Pro 400" = "Pro 400";
+"Quozi" = "قوزي";
+"Sepia High" = "بني داكن مرتفع";
+"Settled" = "تسوية";
+"70s" = "70s";
+"Sin" = "الخطيئة";
+"Soft" = "ناعم";
+"Steel" = "صلب";
+"None" = "بدون";
+"OrientationCropFilter" = "اتجاه";
+"AD1920" = "AD1920";
+"Ancient" = "عتيق";
+"B-Blue" = "ب- الأزرق";
+"Bleached" = "ابيض";
+"Blues" = "بلوز";
+"Blue Shade" = "";
+"Breeze" = "الظل الأزرق";
+"BW" = "BW";
+"Celsius" = "درجة مئوية";
+"Chest" = "صدر";
+"Classic" = "كلاسيك";
+"Colorful" = "زاهى الألوان";
+"Cool" = "رائع";
+"Candy" = "حلويات";
+"Creamy" = "دسم";
+"80s" = "80s";
+"Elder" = "المسنين";
+"Hicon" = "هيكون";
+"Evening" = "مساء";
+"Fall" = "خريف";
+"Fixie" = "Fixie";
+"Food" = "طعام";
+"Fridge" = "ثلاجة";
+"Front" = "أمامي";
+"Glam" = "Glam";
+"Summer" = "الصيف";
+"Sunset" = "غروب الشمس";
+"Tender" = "مناقصة";
+"Texas" = "Texas";
+"Twilight" = "الشفق";
+"Winter" = "شتاء";
+"X400" = "X400";

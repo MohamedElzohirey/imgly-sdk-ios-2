@@ -11,7 +11,7 @@ import Foundation
 open class IMGLYOrchidFilter: IMGLYResponseFilter {
     @objc init() {
         super.init(responseName: "Orchid")
-        self.imgly_displayName = "Orchid"
+        self.imgly_displayName = "Orchid".localized
     }
     
     required public init?(coder aDecoder: NSCoder) {

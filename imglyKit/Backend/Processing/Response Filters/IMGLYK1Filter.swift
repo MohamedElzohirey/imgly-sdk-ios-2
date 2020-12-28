@@ -11,7 +11,7 @@ import Foundation
 open class IMGLYK1Filter: IMGLYResponseFilter {
     @objc init() {
         super.init(responseName: "K1")
-        self.imgly_displayName = "K1"
+        self.imgly_displayName = "K1".localized
     }
     
     required public init?(coder aDecoder: NSCoder) {

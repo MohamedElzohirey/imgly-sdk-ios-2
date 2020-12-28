@@ -11,7 +11,7 @@ import Foundation
 open class IMGLYChestFilter: IMGLYResponseFilter {
     @objc init() {
         super.init(responseName: "Chest")
-        self.imgly_displayName = "Chest"
+        self.imgly_displayName = "Chest".localized
     }
     
     required public init?(coder aDecoder: NSCoder) {

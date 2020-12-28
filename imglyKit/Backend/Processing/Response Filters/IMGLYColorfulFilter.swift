@@ -11,7 +11,7 @@ import Foundation
 open class IMGLYColorfulFilter: IMGLYResponseFilter {
     @objc init() {
         super.init(responseName: "Colorful")
-        self.imgly_displayName = "Colorful"
+        self.imgly_displayName = "Colorful".localized
     }
     
     required public init?(coder aDecoder: NSCoder) {

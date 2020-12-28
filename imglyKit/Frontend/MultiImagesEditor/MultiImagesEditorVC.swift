@@ -293,3 +293,10 @@ extension MultiImagesEditorVC: UITextViewDelegate{
         self.view.frame.origin.y = originalY
     }
 }
+
+extension String {
+    var localized: String {
+        let bundle = Bundle(for: type(of: IMGStickersList().self))
+        return NSLocalizedString(self, tableName: nil, bundle: bundle, value: "", comment: "")
+    }
+}

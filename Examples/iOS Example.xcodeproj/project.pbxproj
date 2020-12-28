@@ -63,6 +63,7 @@
 		2BF4D78A1AF11E2E00C801B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		2BF4D7B41AF11ED100C801B2 /* imglyKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = imglyKit.xcodeproj; path = ../imglyKit.xcodeproj; sourceTree = "<group>"; };
 		2BF4D7BF1AF11F7200C801B2 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D93B4CF42599CB3E00818271 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D94A3AB9253489EB005BD2E2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D94A3ABA253489EB005BD2E2 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		D94A3AEA253C76E2005BD2E2 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -188,6 +189,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = 2BF4D7721AF11E2E00C801B2;
 			productRefGroup = 2BF4D77C1AF11E2E00C801B2 /* Products */;
@@ -260,6 +262,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2BF4D78A1AF11E2E00C801B2 /* Base */,
+				D93B4CF42599CB3E00818271 /* ar */,
 			);
 			name = LaunchScreen.xib;
 			path = .;

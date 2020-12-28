@@ -11,7 +11,7 @@ import Foundation
 open class IMGLYPro400Filter: IMGLYResponseFilter {
     @objc init() {
         super.init(responseName: "Pro400")
-        self.imgly_displayName = "Pro 400"
+        self.imgly_displayName = "Pro 400".localized
     }
     
     required public init?(coder aDecoder: NSCoder) {

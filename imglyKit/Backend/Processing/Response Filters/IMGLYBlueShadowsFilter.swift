@@ -11,7 +11,7 @@ import Foundation
 open class IMGLYBlueShadowsFilter: IMGLYResponseFilter {
     @objc init() {
         super.init(responseName: "BlueShadows")
-        self.imgly_displayName = "Blue Shade"
+        self.imgly_displayName = "Blue Shade".localized
     }
     
     required public init?(coder aDecoder: NSCoder) {

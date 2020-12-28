@@ -11,7 +11,7 @@ import Foundation
 open class IMGLYCreamyFilter: IMGLYResponseFilter {
     @objc init() {
         super.init(responseName: "Creamy")
-        self.imgly_displayName = "Creamy"
+        self.imgly_displayName = "Creamy".localized
     }
     
     required public init?(coder aDecoder: NSCoder) {

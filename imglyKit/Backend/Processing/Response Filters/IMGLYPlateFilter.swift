@@ -11,7 +11,7 @@ import Foundation
 open class IMGLYPlateFilter: IMGLYResponseFilter {
     @objc init() {
         super.init(responseName: "Plate")
-        self.imgly_displayName = "Plate"
+        self.imgly_displayName = "Plate".localized
     }
     
     required public init?(coder aDecoder: NSCoder) {

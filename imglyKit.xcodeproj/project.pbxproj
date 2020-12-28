@@ -483,6 +483,7 @@
 		2BF4D5461AF115A200C801B2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2BF51F6F1B41A7E700FFB4C2 /* IMGLYRecordingMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMGLYRecordingMode.swift; sourceTree = "<group>"; };
 		2BF717D71B414FC600D4A50C /* IMGLYShapeLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IMGLYShapeLayer.swift; sourceTree = "<group>"; };
+		D93B4CEF2599C6B700818271 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D94A3AC2253C2712005BD2E2 /* MultiImagesEditorVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiImagesEditorVC.swift; sourceTree = "<group>"; };
 		D94A3AC3253C2712005BD2E2 /* MultiImagesEditorVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MultiImagesEditorVC.xib; sourceTree = "<group>"; };
 		D94A3AC7253C6BAE005BD2E2 /* TLPhotoLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TLPhotoLibrary.swift; sourceTree = "<group>"; };
@@ -1048,6 +1049,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ar,
 				Base,
 			);
 			mainGroup = 2BF4D37A1AF1139600C801B2;
@@ -1422,6 +1424,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				2BF4D5461AF115A200C801B2 /* en */,
+				D93B4CEF2599C6B700818271 /* ar */,
 			);
 			name = Localizable.strings;
 			path = .;

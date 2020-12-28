@@ -11,7 +11,7 @@ import Foundation
 open class IMGLYTexasFilter: IMGLYResponseFilter {
     @objc init() {
         super.init(responseName: "Texas")
-        self.imgly_displayName = "Texas"
+        self.imgly_displayName = "Texas".localized
     }
     
     required public init?(coder aDecoder: NSCoder) {

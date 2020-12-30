@@ -834,7 +834,9 @@ open class IMGLYCameraController: NSObject {
         if let error = error {
             print("Error in setupVideoInputsForPreferredCameraPosition: \(error.description)")
         }
-        
+        if videoDeviceInput == nil{
+            return
+        }
         if self.session.canAddInput(videoDeviceInput) {
             self.session.addInput(videoDeviceInput)
             self.videoDeviceInput = videoDeviceInput

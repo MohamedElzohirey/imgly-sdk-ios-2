@@ -8,7 +8,8 @@
 
 // Camera View Controller
 "camera-view-controller.camera-no-permission.title" = "No permission";
-"camera-view-controller.camera-no-permission.message" = "Permission to use Camera are required, please change privacy settings.";
+"camera-view-controller.camera-no-permission.message" = "Permission to use Camera is required, please change privacy settings.";
+"camera-view-controller.gallery-no-permission.message" = "Permission to use Gallery is required, please change privacy settings.";
 "camera-view-controller.camera-no-permission.settings" = "Settings";
 "camera-view-controller.camera-no-permission.cancel" = "Cancel";
 "camera-view-controller.mode.photo" = "PHOTO";

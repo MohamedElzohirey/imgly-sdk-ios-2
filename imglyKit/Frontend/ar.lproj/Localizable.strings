@@ -9,6 +9,7 @@
 // Camera View Controller
 "camera-view-controller.camera-no-permission.title" = "لا يوجد إذن";
 "camera-view-controller.camera-no-permission.message" = "مطلوب إذن لاستخدام الكاميرا ، يرجى تغيير إعدادات الخصوصية.";
+"camera-view-controller.gallery-no-permission.message"  = "مطلوب إذن لاستخدام الصور ، يرجى تغيير إعدادات الخصوصية.";
 "camera-view-controller.camera-no-permission.settings" = "إعدادات";
 "camera-view-controller.camera-no-permission.cancel" = "إلغاء";
 "camera-view-controller.mode.photo" = "صورة فوتوغرافية";

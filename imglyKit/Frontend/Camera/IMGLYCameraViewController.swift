@@ -770,6 +770,52 @@ var selectedAssets:[TLPHAsset]=[]
     }
     
     @objc open func showCameraRoll(_ sender: UIButton?) {
+        //check autorization first
+        if #available(iOS 14.0, *) {
+            PHPhotoLibrary.requestAuthorization(for:  .readWrite) { [weak self] status in
+                if status == .authorized || status == .limited{
+                    DispatchQueue.main.async {
+                        self?.openPicker()
+                    }
+                }else{
+                    self?.showError()
+                }
+            }
+        } else {
+            PHPhotoLibrary.requestAuthorization { [weak self] status in
+                if status == .authorized {
+                    DispatchQueue.main.async {
+                        self?.openPicker()
+                    }
+                }else{
+                    self?.showError()
+                }
+               
+            }
+        }
+        
+    }
+    func showError(){
+        DispatchQueue.main.async {
+            let bundle = Bundle(for: type(of: self))
+            
+            let alertController = UIAlertController(title: NSLocalizedString("camera-view-controller.camera-no-permission.title", tableName: nil, bundle: bundle, value: "", comment: ""), message: NSLocalizedString("camera-view-controller.gallery-no-permission.message", tableName: nil, bundle: bundle, value: "", comment: ""), preferredStyle: .alert)
+            
+            let settingsAction = UIAlertAction(title: NSLocalizedString("camera-view-controller.camera-no-permission.settings", tableName: nil, bundle: bundle, value: "", comment: ""), style: .default) { _ in
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.openURL(url)
+                }
+            }
+            
+            let cancelAction = UIAlertAction(title: NSLocalizedString("camera-view-controller.camera-no-permission.cancel", tableName: nil, bundle: bundle, value: "", comment: ""), style: .cancel, handler: nil)
+            
+            alertController.addAction(settingsAction)
+            alertController.addAction(cancelAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    func openPicker(){
         let viewController = TLPhotosPickerViewController()
         viewController.isDark = isDark
         viewController.hasTopNotch = hasTopNotch
@@ -795,7 +841,6 @@ var selectedAssets:[TLPHAsset]=[]
         viewController.configure = configure
         self.present(viewController, animated: true, completion: nil)
     }
-    
     @objc open func takePhoto(_ sender: UIButton?) {
         cameraController?.takePhoto { image, error in
             if error == nil {

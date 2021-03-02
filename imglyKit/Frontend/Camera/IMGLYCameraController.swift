@@ -1363,7 +1363,9 @@ extension IMGLYCameraController: AVCaptureVideoDataOutputSampleBufferDelegate, A
             
             videoPreviewFrame = sourceExtent
             videoPreviewFrame.fittedIntoTargetRect(targetRect, withContentMode: previewContentMode)
-            updateSquareIndicatorView(self.videoPreviewFrame)
+            DispatchQueue.main.async {
+                self.updateSquareIndicatorView(self.videoPreviewFrame)
+            }
             if glContext != EAGLContext.current() {
                 EAGLContext.setCurrent(glContext)
             }

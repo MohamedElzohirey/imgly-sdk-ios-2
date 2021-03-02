@@ -862,7 +862,7 @@ open class IMGLYCameraController: NSObject {
         #if targetEnvironment(simulator)
             return
         #endif
-        let audioDeviceInput: AVCaptureDeviceInput!
+        let audioDeviceInput: AVCaptureDeviceInput?
         do {
             audioDeviceInput = try AVCaptureDeviceInput(device: audioDevice!)
         } catch let error1 as NSError {
@@ -873,9 +873,11 @@ open class IMGLYCameraController: NSObject {
         if let error = error {
             print("Error in setupAudioInputs: \(error.description)")
         }
-        
-        if self.session.canAddInput(audioDeviceInput) {
-            self.session.addInput(audioDeviceInput)
+        guard let audioDeviceInputWrpped = audioDeviceInput else {
+            return
+        }
+        if self.session.canAddInput(audioDeviceInputWrpped) {
+            self.session.addInput(audioDeviceInputWrpped)
             self.audioDeviceInput = audioDeviceInput
         }
     }
